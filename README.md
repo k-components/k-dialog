@@ -1,7 +1,11 @@
 d-dialog
 ========
 
+A general dialog component.
+
 ![image](https://cloud.githubusercontent.com/assets/433707/5057576/d54cf57e-6cd0-11e4-94b5-200f02542518.png)
+
+##Install
 
 ```
 npm i d-dialog --save
