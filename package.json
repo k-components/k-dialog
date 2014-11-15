@@ -1,0 +1,19 @@
+{
+  "name": "d-image-crop",
+  "version": "0.2.1",
+  "description": "Derby.js image cropper component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ile/d-image-crop.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ile/d-image-crop/issues"
+  },
+  "homepage": "https://github.com/ile/d-image-crop"
+}

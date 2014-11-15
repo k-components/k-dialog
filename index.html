@@ -1,0 +1,11 @@
+<index: element="d-dialog">
+	{{if show}}
+	<div class="d-overlay" on-keydown="hide($event)" on-click="click($event)" data-hide="1">
+		<div class="d-dialog">
+			<div class="d-close" on-click="click($event)" data-hide="1">X</div>
+			<div class="d-dialog-inner" as="inner">
+				{{@content}}
+			</div>
+		</div>
+	</div>
+	{{/}}

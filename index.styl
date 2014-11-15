@@ -1,0 +1,52 @@
+.d-overlay
+  position fixed
+  top 0
+  left 0
+  right 0
+  bottom 0
+  background rgba(55,55,55,0.3)
+  background radial-gradient(center, ellipse cover, rgba(77,77,77,0.2) 0%,rgba(0,0,0,0.5) 100%)
+  z-index 1000
+
+  .d-dialog
+    position absolute
+    background #fafafa
+    top 15%
+    left 50%
+    width 450px
+    margin-left -225px !important
+    border-radius 5px
+    box-shadow 0 0 25px rgba(0,0,0,0.4)
+    animation 0.4s d-popup cubic-bezier(0,.96,.44,.98)
+    
+    .d-close
+      position absolute
+      top -7px
+      right -5px
+      width 28px
+      text-align center
+      height 28px
+      background #fff
+      border-radius 100%
+      box-shadow 0 0 6px rgba(0,0,0,0.3)
+      font-weight bold
+      color #888
+      font-size 20px
+      line-height 28px
+      cursor pointer
+
+    .d-dialog-inner
+      padding 1.5em
+
+    h1, h2
+      font italic normal 22px/22px Lora, Cambria, Georgia
+      text-align center
+      color #555
+      margin 0
+      padding 0
+
+@keyframes d-popup
+  0%
+    transform scale(0) translateY(-1000px)
+  100%
+    transform scale(1) translateY(0)
