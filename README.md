@@ -1,7 +1,7 @@
 d-dialog
 ========
 
-A general dialog component.
+A general dialog component for DerbyJS.
 
 ![image](https://cloud.githubusercontent.com/assets/433707/5057576/d54cf57e-6cd0-11e4-94b5-200f02542518.png)
 
