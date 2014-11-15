@@ -1,6 +1,6 @@
 {
   "name": "d-dialog",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Derby.js dialog component",
   "main": "index.js",
   "scripts": {
