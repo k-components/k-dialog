@@ -1,19 +1,19 @@
 {
-  "name": "d-image-crop",
-  "version": "0.2.1",
-  "description": "Derby.js image cropper component",
+  "name": "d-dialog",
+  "version": "0.1.0",
+  "description": "Derby.js dialog component",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ile/d-image-crop.git"
+    "url": "https://github.com/ile/d-dialog.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ile/d-image-crop/issues"
+    "url": "https://github.com/ile/d-dialog/issues"
   },
-  "homepage": "https://github.com/ile/d-image-crop"
+  "homepage": "https://github.com/ile/d-dialog"
 }
