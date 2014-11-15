@@ -3,7 +3,7 @@ d-dialog
 
 A general dialog component for DerbyJS.
 
-![image](https://cloud.githubusercontent.com/assets/433707/5057576/d54cf57e-6cd0-11e4-94b5-200f02542518.png)
+![image](https://cloud.githubusercontent.com/assets/433707/5059702/44860720-6d2e-11e4-92e3-73937997ad98.png)
 
 ##Install
 
