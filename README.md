@@ -7,6 +7,14 @@ d-dialog
 npm i d-dialog --save
 ```
 
+```javascript
+app.component(require('d-dialog'));
+```
+
+```css
+@import 'node_modules/d-dialog'
+```
+
 ##Usage
 
 ```html
