@@ -35,7 +35,15 @@
     };
 
     Dialog.prototype.hide = function(e) {
-      return this.model.del('show');
+      var h;
+      h = (function(_this) {
+        return function() {
+          _this.model.del('show');
+          return _this.model.del('hiding');
+        };
+      })(this);
+      this.model.set('hiding', true);
+      return setTimeout(h, 510);
     };
 
     Dialog.prototype.click = function(e) {

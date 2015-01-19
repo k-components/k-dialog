@@ -1,6 +1,6 @@
 {
   "name": "d-dialog",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Derby.js dialog component",
   "main": "index.js",
   "scripts": {
@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/ile/d-dialog/issues"
   },
-  "homepage": "https://github.com/ile/d-dialog"
+  "homepage": "https://github.com/ile/d-dialog",
+  "readme": "d-dialog\r\n========\r\n\r\n![image](https://cloud.githubusercontent.com/assets/433707/5057576/d54cf57e-6cd0-11e4-94b5-200f02542518.png)\r\n\r\n```\r\nnpm i d-dialog --save\r\n```\r\n\r\n##Usage\r\n\r\n```html\r\n  <d-dialog as=\"loginDialog\">\r\n    <h2>{{t('login')}}</h2>\r\n    <form class=\"pure-form pure-form-stacked\" method=\"post\" action=\"/login\" data-router-ignore=\"\">\r\n      <fieldset class=\"pure-u-1-1\">\r\n        <div class=\"pure-control-group left\">\r\n          <label for=\"email\">{{t('Username')}}</label>\r\n          <input tabindex=\"1\" class=\"pure-input-1\" autofocus id=\"email\" type=\"text\" name=\"username\">\r\n        </div>\r\n        <div class=\"pure-control-group left\">\r\n          <label for=\"password\">{{t('Password')}}<a data-router-ignore=\"\" class=\"pull-right smaller italic gray margin-top-7 t\" href=\"/password-reset\">{{t('Need password remainder?')}}</a></label>\r\n          <input tabindex=\"2\" class=\"pure-input-1\" id=\"password\" type=\"password\" name=\"password\">\r\n        </div>\r\n        <div class=\"pure-control-group center\">\r\n          <button tabindex=\"3\" type=\"submit\" class=\"pure-button pure-button-primary pure-button-wide\"><i class=\"fa fa-sign-in\"></i> {{t('Sign in')}}</button>\r\n        </div>\r\n      </fieldset>\r\n    </form>\r\n    <hr class=\"fancy-line with-label\" data-label=\"{{t('or')}}\">\r\n    <p>{{t('Sign in with')}} <a data-router-ignore=\"\" href=\"/auth/facebook\" class=\"blanket-button blanket-button-bright bg-fb\"><i class=\"fa fa-facebook\"></i></a> <a data-router-ignore=\"\" href=\"/auth/twitter\" class=\"blanket-button blanket-button-bright bg-twitter\"><i class=\"fa fa-twitter\"></i></a></p>\r\n    <hr class=\"fancy-line with-label\" data-label=\"{{t('or')}}\">\r\n    <p class=\"center\"><a class=\"pure-button pure-button-success\" data-router-ignore=\"\" href=\"/register\"><i class=\"fa fa-plus-circle\"></i> {{t('Sign up')}}</a></p>\r\n  </d-dialog>\r\n```\r\n\r\n\r\n```html\r\n<a data-router-ignore=\"\" href=\"/login\" on-click=\"loginDialog.show($event)\"><span>{{t('login')}}</span></a>\r\n```\r\n",
+  "readmeFilename": "README.md",
+  "gitHead": "fc565388a5c3c361b63ebc1767e581f7ad5c0055",
+  "_id": "d-dialog@0.1.2",
+  "_shasum": "c65d1380c52905d443e207a2872080871c931abc",
+  "_from": "d-dialog@"
 }

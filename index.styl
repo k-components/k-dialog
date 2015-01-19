@@ -4,9 +4,17 @@
   left 0
   right 0
   bottom 0
-  background rgba(55,55,55,0.3)
-  background radial-gradient(center, ellipse cover, rgba(77,77,77,0.2) 0%,rgba(0,0,0,0.5) 100%)
+  background rgba(0,0,0,0.2)
+  // background radial-gradient(center, ellipse cover, rgba(77,77,77,0.2) 0%,rgba(0,0,0,0.5) 100%)
   z-index 1000
+  animation 0.5s d-overlay ease
+  &.hiding
+    animation .5s d-overlay-off ease
+    background rgba(0,0,0,0)
+    .d-dialog
+      animation .5s d-popup-off cubic-bezier(0, 1, 0, 1)
+      opacity 0
+      transform translateY(-800px)
 
   .d-dialog
     position absolute
@@ -16,8 +24,8 @@
     width 450px
     margin-left -225px !important
     border-radius 5px
-    box-shadow 0 0 25px rgba(0,0,0,0.4)
-    animation 0.4s d-popup cubic-bezier(0,.96,.44,.98)
+    box-shadow 0 0 25px rgba(0,0,0,0.5)
+    animation 0.5s d-popup cubic-bezier(0, 1, 0, 1)
     
     .d-close
       position absolute
@@ -48,6 +56,28 @@
 
 @keyframes d-popup
   0%
-    transform scale(0) translateY(-1000px)
+    opacity 0
+    transform translateY(-800px)
   100%
-    transform scale(1) translateY(0)
+    opacity 1
+    transform translateY(0)
+
+@keyframes d-popup-off
+  0%
+    opacity 1
+    transform translateY(0)
+  100%
+    opacity 0
+    transform translateY(-800px)
+
+@keyframes d-overlay
+  0%
+    background rgba(0,0,0,0)
+  100%
+    background rgba(0,0,0,0.2)
+
+@keyframes d-overlay-off
+  0%
+    background rgba(0,0,0,0.2)
+  100%
+    background rgba(0,0,0,0)

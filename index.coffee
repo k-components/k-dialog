@@ -18,7 +18,12 @@ module.exports = class Dialog
 		@model.set 'show', true
 
 	hide: (e) =>
-		@model.del 'show'
+		h = =>
+			@model.del 'show'
+			@model.del 'hiding'
+
+		@model.set 'hiding', true
+		setTimeout h, 510
 
 	click: (e) =>
 		@hide() if e?.target?.getAttribute('data-hide') is '1'
