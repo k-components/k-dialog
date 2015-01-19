@@ -5,7 +5,7 @@
   right 0
   bottom 0
   background rgba(0,0,0,0.2)
-  // background radial-gradient(center, ellipse cover, rgba(77,77,77,0.2) 0%,rgba(0,0,0,0.5) 100%)
+  // background radial-gradient(center, ellipse cover, rgba(77,77,77,0.2) 0%,rgba(0,0,0,0.8) 100%)
   z-index 1000
   animation 0.5s d-overlay ease
   &.hiding
@@ -14,7 +14,7 @@
     .d-dialog
       animation .5s d-popup-off cubic-bezier(0, 1, 0, 1)
       opacity 0
-      transform translateY(-800px)
+      transform translateY(-150px)
 
   .d-dialog
     position absolute
@@ -24,7 +24,7 @@
     width 450px
     margin-left -225px !important
     border-radius 5px
-    box-shadow 0 0 25px rgba(0,0,0,0.15)
+    box-shadow 0 0 25px rgba(0,0,0,0.2)
     animation 0.5s d-popup cubic-bezier(0, 1, 0, 1)
     
     .d-close
@@ -45,7 +45,7 @@
       cursor pointer
 
     .d-dialog-inner
-      padding 1.5em
+      padding 1.8em
 
     h1, h2
       font italic normal 22px/22px Lora, Cambria, Georgia
@@ -57,7 +57,7 @@
 @keyframes d-popup
   0%
     opacity 0
-    transform translateY(-800px)
+    transform translateY(-150px)
   100%
     opacity 1
     transform translateY(0)
@@ -68,7 +68,7 @@
     transform translateY(0)
   100%
     opacity 0
-    transform translateY(-800px)
+    transform translateY(-150px)
 
 @keyframes d-overlay
   0%
