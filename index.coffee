@@ -1,7 +1,7 @@
 
 module.exports = class Dialog
 	view: __dirname
-	name: 'd-dialog'
+	name: 'k-dialog'
 
 	create: ->
 		@model.on 'change', 'show', @autofocus

@@ -1,4 +1,4 @@
-.d-overlay
+.k-overlay
   position fixed
   top 0
   left 0
@@ -7,16 +7,16 @@
   background rgba(0,0,0,0.2)
   // background radial-gradient(center, ellipse cover, rgba(77,77,77,0.2) 0%,rgba(0,0,0,0.8) 100%)
   z-index 1000
-  animation 0.5s d-overlay ease
+  animation 0.5s k-overlay ease
   &.hiding
-    animation .5s d-overlay-off ease
+    animation .5s k-overlay-off ease
     background rgba(0,0,0,0)
-    .d-dialog
-      animation .5s d-popup-off cubic-bezier(0, 1, 0, 1)
+    .k-dialog
+      animation .5s k-popup-off cubic-bezier(0, 1, 0, 1)
       opacity 0
       transform translateY(-150px)
 
-  .d-dialog
+  .k-dialog
     position absolute
     background #fafafa
     top 15%
@@ -25,9 +25,9 @@
     margin-left -225px !important
     border-radius 5px
     box-shadow 0 0 25px rgba(0,0,0,0.2)
-    animation 0.5s d-popup cubic-bezier(0, 1, 0, 1)
+    animation 0.5s k-popup cubic-bezier(0, 1, 0, 1)
     
-    .d-close
+    .k-close
       position absolute
       top -7px
       right -5px
@@ -44,7 +44,7 @@
       line-height 28px
       cursor pointer
 
-    .d-dialog-inner
+    .k-dialog-inner
       padding 1.8em
 
     h1, h2
@@ -54,7 +54,7 @@
       margin 0
       padding 0
 
-@keyframes d-popup
+@keyframes k-popup
   0%
     opacity 0
     transform translateY(-150px)
@@ -62,7 +62,7 @@
     opacity 1
     transform translateY(0)
 
-@keyframes d-popup-off
+@keyframes k-popup-off
   0%
     opacity 1
     transform translateY(0)
@@ -70,13 +70,13 @@
     opacity 0
     transform translateY(-150px)
 
-@keyframes d-overlay
+@keyframes k-overlay
   0%
     background rgba(0,0,0,0)
   100%
     background rgba(0,0,0,0.2)
 
-@keyframes d-overlay-off
+@keyframes k-overlay-off
   0%
     background rgba(0,0,0,0.2)
   100%

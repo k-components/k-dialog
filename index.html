@@ -1,9 +1,9 @@
-<index: element="d-dialog">
+<index: element="k-dialog">
 	{{if show}}
-	<div class="d-overlay {{if hiding}}hiding{{/}}" on-keydown="keydown($event)" on-click="click($event)" data-hide="1">
-		<div class="d-dialog">
-			<div class="d-close" on-click="click($event)" data-hide="1">X</div>
-			<div class="d-dialog-inner" as="inner">
+	<div class="k-overlay {{if hiding}}hiding{{/}}" on-keydown="keydown($event)" on-click="click($event)" data-hide="1">
+		<div class="k-dialog">
+			<div class="k-close" on-click="click($event)" data-hide="1">X</div>
+			<div class="k-dialog-inner" as="inner">
 				{{@content}}
 			</div>
 		</div>

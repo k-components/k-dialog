@@ -13,7 +13,7 @@
 
     Dialog.prototype.view = __dirname;
 
-    Dialog.prototype.name = 'd-dialog';
+    Dialog.prototype.name = 'k-dialog';
 
     Dialog.prototype.create = function() {
       return this.model.on('change', 'show', this.autofocus);
