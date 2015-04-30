@@ -2,7 +2,7 @@
 	{{if show}}
 	<div class="k-overlay {{if hiding}}hiding{{/}}" on-keydown="keydown($event)" on-click="click($event)" data-hide="1">
 		<div class="k-dialog">
-			<div class="k-close" on-click="click($event)" data-hide="1"><i class="fa fa-times"></i></div>
+			<div class="k-close fa fa-times" on-click="click($event)" data-hide="1"></div>
 			<div class="k-dialog-inner" as="inner">
 				{{@content}}
 			</div>
