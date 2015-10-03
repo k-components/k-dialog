@@ -1,6 +1,6 @@
 {
   "name": "k-dialog",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Kantele dialog component",
   "main": "index.js",
   "scripts": {
