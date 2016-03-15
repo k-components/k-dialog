@@ -3,8 +3,13 @@ module.exports = class Dialog
 	view: __dirname
 	name: 'k-dialog'
 
+	destroy: ->
+		console.log 'destroy'
+		document.removeEventListener 'keydown', @keydown, true
+
 	create: ->
 		@model.on 'change', 'show', @autofocus
+		document.addEventListener 'keydown', @keydown, true
 
 	autofocus: =>
 		if @inner?.querySelectorAll
