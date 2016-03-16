@@ -16,7 +16,6 @@
     Dialog.prototype.name = 'k-dialog';
 
     Dialog.prototype.destroy = function() {
-      console.log('destroy');
       return document.removeEventListener('keydown', this.keydown, true);
     };
 
