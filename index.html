@@ -1,11 +1,11 @@
 <index: element="k-dialog">
 	{{if show}}
-	<div class="k-overlay{{if hiding}} hiding{{/}}{{if fixed}} fixed{{/}}" on-click="click($event)" data-hide="1">
-		<div class="k-dialog{{if class}} {{class}}{{/}}">
-			<div class="k-close fa fa-times" on-click="click($event)" data-hide="1"></div>
-			<div class="k-dialog-inner" as="inner">
-				{{@content}}
+		<div class="k-overlay{{if hiding}} hiding{{/}}{{if fixed}} fixed{{/}}{{if classoverlay}} {{classoverlay}}{{/}}" on-click="click($event)" data-hide="1">
+			<div class="k-dialog{{if class}} {{class}}{{/}}">
+				<div class="k-close fa fa-times" on-click="click($event)" data-hide="1"></div>
+				<div class="k-dialog-inner" as="inner">
+					{{@content}}
+				</div>
 			</div>
 		</div>
-	</div>
 	{{/}}

@@ -8,6 +8,9 @@
       this.keydown = bind(this.keydown, this);
       this.click = bind(this.click, this);
       this.hide = bind(this.hide, this);
+      this.show = bind(this.show, this);
+      this.removeKeydownEvent = bind(this.removeKeydownEvent, this);
+      this.setKeydownEvent = bind(this.setKeydownEvent, this);
       this.autofocus = bind(this.autofocus, this);
     }
 
@@ -21,7 +24,9 @@
 
     Dialog.prototype.create = function() {
       this.model.on('change', 'show', this.autofocus);
-      return document.addEventListener('keydown', this.keydown, true);
+      if (this.model.get('show')) {
+        return this.setKeydownEvent();
+      }
     };
 
     Dialog.prototype.autofocus = function() {
@@ -33,18 +38,32 @@
       }
     };
 
+    Dialog.prototype.setKeydownEvent = function() {
+      return document.addEventListener('keydown', this.keydown, true);
+    };
+
+    Dialog.prototype.removeKeydownEvent = function() {
+      return document.removeEventListener('keydown', this.keydown);
+    };
+
     Dialog.prototype.show = function(e) {
       e && e.preventDefault();
       e && e.stopPropagation();
-      return this.model.set('show', true);
+      this.model.set('show', true);
+      return this.setKeydownEvent();
     };
 
     Dialog.prototype.hide = function(e) {
       var h;
+      this.removeKeydownEvent();
+      if (e) {
+        e.stopPropagation();
+      }
       h = (function(_this) {
         return function() {
           _this.model.del('show');
-          return _this.model.del('hiding');
+          _this.model.del('hiding');
+          return _this.emit('cancel');
         };
       })(this);
       this.model.set('hiding', true);
@@ -54,7 +73,7 @@
     Dialog.prototype.click = function(e) {
       var ref;
       if ((e != null ? (ref = e.target) != null ? ref.getAttribute('data-hide') : void 0 : void 0) === '1') {
-        return this.hide();
+        return this.hide(e);
       }
     };
 
@@ -62,7 +81,7 @@
       var key;
       key = e.keyCode || e.which;
       if (key === 27) {
-        return this.hide();
+        return this.hide(e);
       }
     };
 
