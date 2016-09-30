@@ -59,6 +59,7 @@
       if (e) {
         e.stopPropagation();
       }
+      document.activeElement.blur();
       h = (function(_this) {
         return function() {
           _this.model.del('show');

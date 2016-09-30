@@ -32,6 +32,8 @@ module.exports = class Dialog
   hide: (e) =>
     @removeKeydownEvent()
     e.stopPropagation() if e
+    document.activeElement.blur()
+
     h = =>
       @model.del 'show'
       @model.del 'hiding'

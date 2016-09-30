@@ -35,7 +35,7 @@
     top 100px
     left 50%
     width 450px
-    margin-left -225px
+    transform translateX(-50%)
     border-radius 10px
     box-shadow 0 0 25px rgba(0,0,0,0.12)
     animation 0.5s k-popup cubic-bezier(0, 1, 0, 1)
@@ -70,18 +70,18 @@
 @keyframes k-popup
   0%
     opacity 0
-    transform translateY(-150px)
+    transform translateY(-150px) translateX(-50%)
   100%
     opacity 1
-    transform translateY(0)
+    transform translateY(0) translateX(-50%)
 
 @keyframes k-popup-off
   0%
     opacity 1
-    transform translateY(0)
+    transform translateY(0) translateX(-50%)
   100%
     opacity 0
-    transform translateY(-150px)
+    transform translateY(-150px) translateX(-50%)
 
 @keyframes k-overlay
   0%
