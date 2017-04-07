@@ -8,6 +8,7 @@ module.exports = class Dialog
 
   create: ->
     @model.on 'change', 'show', @autofocus
+    @autofocus()
     if @model.get('show')
       @setKeydownEvent();
 
