@@ -4,7 +4,7 @@ module.exports = class Dialog
   name: 'k-dialog'
 
   destroy: ->
-    document.removeEventListener 'keydown', @keydown, true
+    @removeKeydownEvent()
 
   create: ->
     @model.on 'change', 'show', @autofocus
@@ -19,9 +19,13 @@ module.exports = class Dialog
       autofocus?.focus()
 
   setKeydownEvent: =>
+    # don't set if we are sticly
+    return if @model.get('sticky')
+
     document.addEventListener 'keydown', @keydown, true
 
   removeKeydownEvent: =>
+    return if @model.get('sticky')
     document.removeEventListener 'keydown', @keydown
 
   show: (e) =>
@@ -44,6 +48,9 @@ module.exports = class Dialog
     setTimeout h, 510
 
   click: (e) =>
+    # don't if we are sticly
+    return if @model.get('sticky')
+
     @hide(e) if e?.target?.getAttribute('data-hide') is '1'
 
   keydown: (e) =>

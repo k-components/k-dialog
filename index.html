@@ -1,7 +1,7 @@
 <index: element="k-dialog">
 	{{if show}}
 		<div class="k-overlay{{if hiding}} hiding{{/}}{{if fixed}} k-overlay-fixed{{else if static}} k-overlay-static{{/}}" on-click="click($event)" data-hide="1">
-			<div class="k-dialog{{if class}} {{class}}{{/}}">
+			<div class="k-dialog{{if class}} {{class}}{{/}}{{if sticky}} k-dialog-sticky{{/}}">
 				<div class="k-close fa fa-times ion ion-ios-close-empty" on-click="click($event)" data-hide="1"></div>
 				<div class="k-dialog-inner" as="inner">
 					{{@content}}
