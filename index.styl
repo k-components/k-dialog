@@ -11,6 +11,39 @@
 .k-overlay.k-overlay-fixed
   position fixed
 
+.k-overlay-fixed.k-overlay.k-dialog-big, .k-overlay.k-dialog-big
+  background none
+  animation none
+
+  &.hiding
+    .k-dialog
+      opacity 0
+      transform translateX(50%) scaleX(0)
+      animation 0.3s k-popup-big-off ease-in
+
+  .k-dialog
+    transform none
+    top 0
+    left 0
+    width 100%
+    height 100%
+    max-height none !important
+    box-shadow none
+    border-radius 0
+    animation 0.5s k-popup-big cubic-bezier(0, 1, 0, 1)
+
+    .k-close:hover
+      color #777
+    .k-close
+      transition 0.3s background, 0.3s color
+      position absolute
+      top 15px
+      right 20px
+      font-size 40px
+      width 40px
+      height 40px
+      vertical-align middle
+
 .k-overlay
   position absolute
   top 0
@@ -24,6 +57,7 @@
   &.hiding
     animation .5s k-overlay-off ease
     background rgba(0,0,0,0)
+
     .k-dialog
       animation .5s k-popup-off cubic-bezier(0, 1, 0, 1)
       opacity 0
@@ -78,6 +112,22 @@
       color #555
       margin 0
       padding 0
+
+@keyframes k-popup-big
+  0%
+    opacity 0
+    transform translateX(50%) scaleX(0)
+  100%
+    opacity 1
+    transform  translateX(0) scaleX(1)
+
+@keyframes k-popup-big-off
+  0%
+    opacity 1
+    transform translateX(0) scaleX(1)
+  100%
+    opacity 0
+    transform translateX(50%) scaleX(0)
 
 @keyframes k-popup
   0%
