@@ -11,15 +11,22 @@
 .k-overlay.k-overlay-fixed
   position fixed
 
+.k-overlay-fixed.k-overlay.k-dialog-big.k-dialog-from-right, .k-overlay.k-dialog-big.k-dialog-from-right
+  &.hiding .k-dialog
+    transform translateX(-50%)
+    animation 0.3s k-popup-big-from-right-off ease-in
+
+  .k-dialog
+    animation 0.5s k-popup-big-from-right cubic-bezier(0, 1, 0, 1)
+
 .k-overlay-fixed.k-overlay.k-dialog-big, .k-overlay.k-dialog-big
   background none
   animation none
 
-  &.hiding
-    .k-dialog
-      opacity 0
-      transform translateX(50%) scaleX(0)
-      animation 0.3s k-popup-big-off ease-in
+  &.hiding .k-dialog
+    opacity 0
+    transform translateX(50%)
+    animation 0.3s k-popup-big-off ease-in
 
   .k-dialog
     transform none
@@ -78,6 +85,7 @@
     box-shadow 0 0 35px rgba(0,0,0,0.22)
     animation 0.5s k-popup cubic-bezier(0, 1, 0, 1)
     padding 1.2em
+    box-sizing border-box
 
     .k-close:hover
       background #aaa
@@ -112,21 +120,37 @@
       margin 0
       padding 0
 
+@keyframes k-popup-big-from-right
+  0%
+    opacity 0
+    transform translateX(-50%)
+  100%
+    opacity 1
+    transform translateX(0)
+
 @keyframes k-popup-big
   0%
     opacity 0
-    transform translateX(50%) scaleX(0)
+    transform translateX(50%)
   100%
     opacity 1
-    transform  translateX(0) scaleX(1)
+    transform  translateX(0)
+
+@keyframes k-popup-big-from-right-off
+  0%
+    opacity 1
+    transform translateX(0)
+  100%
+    opacity 0
+    transform translateX(-50%)
 
 @keyframes k-popup-big-off
   0%
     opacity 1
-    transform translateX(0) scaleX(1)
+    transform translateX(0)
   100%
     opacity 0
-    transform translateX(50%) scaleX(0)
+    transform translateX(50%)
 
 @keyframes k-popup
   0%
