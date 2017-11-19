@@ -26,7 +26,7 @@ module.exports = class Dialog
 
   removeKeydownEvent: =>
     return if @model.get('sticky')
-    document.removeEventListener 'keydown', @keydown
+    document.removeEventListener 'keydown', @keydown, true
 
   show: (e) =>
     e and e.preventDefault()
