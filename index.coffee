@@ -22,11 +22,12 @@ module.exports = class Dialog
     # don't set if we are sticly
     return if @model.get('sticky')
 
-    document.addEventListener 'keydown', @keydown, true
+    # use document.body since k-popup should be handled first and it uses document
+    document.body.addEventListener 'keydown', @keydown, true
 
   removeKeydownEvent: =>
     return if @model.get('sticky')
-    document.removeEventListener 'keydown', @keydown, true
+    document.body.removeEventListener 'keydown', @keydown, true
 
   show: (e) =>
     e and e.preventDefault()
@@ -55,4 +56,6 @@ module.exports = class Dialog
 
   keydown: (e) =>
     key = e.keyCode or e.which
-    @hide(e) if key is 27
+    if key is 27
+      e.stopPropagation()
+      @hide()
