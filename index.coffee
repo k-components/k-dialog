@@ -5,12 +5,18 @@ module.exports = class Dialog
 
   destroy: ->
     @removeKeydownEvent()
+    window.removeEventListener 'popstate', @backbuttonpressed
 
   create: ->
     @model.on 'change', 'show', @autofocus
     @autofocus()
+    window.addEventListener 'popstate', @backbuttonpressed
+
     if @model.get('show')
       @setKeydownEvent();
+
+  backbuttonpressed: =>
+    @hide()
 
   autofocus: =>
     if @inner?.querySelectorAll
