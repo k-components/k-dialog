@@ -7,16 +7,28 @@ module.exports = class Dialog
     @removeKeydownEvent()
     window.removeEventListener 'popstate', @backbuttonpressed
 
+  init: ->
+
   create: ->
     @model.on 'change', 'show', @autofocus
     @autofocus()
     window.addEventListener 'popstate', @backbuttonpressed
 
+    # deterrmine correct z-index
+    els = document.querySelectorAll('.k-overlay')
+    max = 9000
+    for el in els
+      if el.zindex > max
+        max = el.zindex
+
+    @thisdialog.zindex = max + 1
+    @model.set 'zindex', @thisdialog.zindex
+
     if @model.get('show')
       @setKeydownEvent();
 
   backbuttonpressed: =>
-    @hide()
+    @hide(null, true)
 
   autofocus: =>
     if @inner?.querySelectorAll
@@ -41,7 +53,7 @@ module.exports = class Dialog
     @model.set 'show', true
     @setKeydownEvent()
 
-  hide: (e) =>
+  hide: (e, backbuttonpressed = false) =>
     @removeKeydownEvent()
     e.stopPropagation() if e
     document.activeElement.blur()
@@ -49,7 +61,7 @@ module.exports = class Dialog
     h = =>
       @model.del 'show'
       @model.del 'hiding'
-      @emit('cancel')
+      @emit('cancel', backbuttonpressed)
 
     @model.set 'hiding', true
     setTimeout h, 510
@@ -63,5 +75,11 @@ module.exports = class Dialog
   keydown: (e) =>
     key = e.keyCode or e.which
     if key is 27
+      # apply this only to the topmost k-dialog
+      els = document.querySelectorAll('.k-overlay')
+      for el in els
+        if el.zindex > @thisdialog.zindex
+          return
+
       e.stopPropagation()
       @hide()
