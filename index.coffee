@@ -14,16 +14,8 @@ module.exports = class Dialog
     @autofocus()
     window.addEventListener 'popstate', @backbuttonpressed
 
-    # deterrmine correct z-index
-    els = document.querySelectorAll('.k-overlay')
-    max = 9000
-    for el in els
-      if el.zindex > max
-        max = el.zindex
-
-    @thisdialog.zindex = max + 1
-    @model.set 'zindex', @thisdialog.zindex
-
+    @setzIndex()
+    
     if @model.get('show')
       @setKeydownEvent();
 
@@ -47,11 +39,24 @@ module.exports = class Dialog
     return if @model.get('sticky')
     document.body.removeEventListener 'keydown', @keydown, true
 
+  setzIndex: => 
+    # deterrmine correct z-index
+    if @thisdialog
+      els = document.querySelectorAll('.k-overlay')
+      max = 9000
+      for el in els
+        if el.zindex > max
+          max = el.zindex
+
+      @thisdialog.zindex = max + 1
+      @model.set 'zindex', @thisdialog.zindex
+
   show: (e) =>
     e and e.preventDefault()
     e and e.stopPropagation()
     @model.set 'show', true
     @setKeydownEvent()
+    @setzIndex()
 
   hide: (e, backbuttonpressed = false) =>
     @removeKeydownEvent()

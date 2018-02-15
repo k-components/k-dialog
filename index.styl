@@ -11,6 +11,13 @@
 .k-overlay.k-overlay-fixed
   position fixed
 
+.k-overlay.k-dialog-effect-fromup, .k-overlay.k-dialog-big.k-dialog-effect-fromup
+  &.hiding .k-dialog
+    animation .3s k-dialog-effect-fromup-off ease-in
+
+  .k-dialog
+    animation .5s k-dialog-effect-fromup cubic-bezier(0, 1, 0, 1)
+
 .k-overlay.k-dialog-effect-fromright, .k-overlay.k-dialog-big.k-dialog-effect-fromright
   &.hiding .k-dialog
     animation .3s k-dialog-effect-fromright-off ease-in
@@ -132,6 +139,22 @@
       color #555
       margin 0
       padding 0
+
+@keyframes k-dialog-effect-fromup
+  0%
+    opacity 0
+    transform translateY(-50%)
+  100%
+    opacity 1
+    transform translateY(0)
+
+@keyframes k-dialog-effect-fromup-off
+  0%
+    opacity 1
+    transform translateY(0)
+  100%
+    opacity 0
+    transform translateY(-50%)
 
 @keyframes k-dialog-effect-fromright
   0%
