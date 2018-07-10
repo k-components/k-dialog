@@ -1,6 +1,6 @@
 <index: element="k-dialog">
 	{{if show}}
-		<div as="thisdialog" style="z-index: {{zindex}}" class="k-overlay{{if hiding}} hiding{{/}}{{if fixed}} k-overlay-fixed{{else if static}} k-overlay-static{{/}}{{if big}} k-dialog-big{{/}}{{if effect}} k-dialog-effect-{{effect}}{{/}}" on-click="click($event)" data-hide="1">
+		<div as="thisdialog" style="z-index: {{zindex}}" class="k-overlay{{if hiding}} hiding{{/}}{{if fixed}} k-overlay-fixed{{else if static}} k-overlay-static{{/}}{{if big}} k-dialog-big{{/}}{{if effect}} k-dialog-effect-{{effect}}{{/}}{{if noanimation}} k-dialog-no-animation{{/}}" on-click="click($event)" data-hide="1">
 			<div  class="k-dialog{{if class}} {{class}}{{/}}{{if sticky}} k-dialog-sticky{{/}}{{if transparent}} k-dialog-transparent{{/}}">
 				<div class="k-close fa fa-times ion ion-ios-close-empty" on-click="click($event)" data-hide="1"></div>
 				<div class="k-dialog-inner" as="inner">
