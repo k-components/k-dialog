@@ -2,41 +2,45 @@
 module.exports = class Dialog
   view: __dirname
   name: 'k-dialog'
+  keydownSet: false
 
   destroy: ->
     @removeKeydownEvent()
     window.removeEventListener 'popstate', @backbuttonpressed
 
-  init: ->
-
   create: ->
-    @model.on 'change', 'show', @autofocus
-    @autofocus()
+    @model.on 'change', 'show', @showChanged
     window.addEventListener 'popstate', @backbuttonpressed
-
-    @setzIndex()
     
     if @model.get('show')
-      @setKeydownEvent();
+      @show()
 
   backbuttonpressed: =>
     @hide(null, true)
 
   autofocus: =>
-    if @inner?.querySelectorAll
-      el = @inner.querySelectorAll('[autofocus]')
-      autofocus = el?[0]
-      autofocus?.focus()
+    el = @inner.querySelectorAll('[autofocus]')
+    autofocus = el?[0]
+    autofocus?.focus()
+
+  showChanged: (val, oldval) =>
+    if val
+      @show()
 
   setKeydownEvent: =>
     # don't set if we are sticly
-    return if @model.get('sticky')
+    return if @model.get('sticky') || @keydownSet
+
+    @keydownSet = true
 
     # use document.body since k-popup should be handled first and it uses document
     document.body.addEventListener 'keydown', @keydown, true
 
   removeKeydownEvent: =>
     return if @model.get('sticky')
+
+    @keydownSet = false
+
     document.body.removeEventListener 'keydown', @keydown, true
 
   setzIndex: => 
@@ -54,9 +58,9 @@ module.exports = class Dialog
   show: (e) =>
     e and e.preventDefault()
     e and e.stopPropagation()
-    @model.set 'show', true
     @setKeydownEvent()
     @setzIndex()
+    @autofocus()
 
   hide: (e, backbuttonpressed = false) =>
     @removeKeydownEvent()
