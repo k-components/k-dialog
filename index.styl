@@ -12,31 +12,31 @@
   position fixed
 
 .k-overlay.k-dialog-effect-fromup, .k-overlay.k-dialog-big.k-dialog-effect-fromup
-  &.hiding .k-dialog
+  &.hiding > .k-dialog
     animation .3s k-dialog-effect-fromup-off ease-in
 
-  .k-dialog
+  > .k-dialog
     animation .5s k-dialog-effect-fromup cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-effect-fromright, .k-overlay.k-dialog-big.k-dialog-effect-fromright
-  &.hiding .k-dialog
+  &.hiding > .k-dialog
     animation .3s k-dialog-effect-fromright-off ease-in
 
-  .k-dialog
+  > .k-dialog
     animation .5s k-dialog-effect-fromright cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-effect-fromleft, .k-overlay.k-dialog-big.k-dialog-effect-fromleft
-  &.hiding .k-dialog
+  &.hiding > .k-dialog
     animation 0.3s k-dialog-effect-fromleft-off ease-in
 
-  .k-dialog
+  > .k-dialog
     animation 0.5s k-dialog-effect-fromleft cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-effect-center, .k-overlay.k-dialog-big.k-dialog-effect-center
-  &.hiding .k-dialog
+  &.hiding > .k-dialog
     animation .3s k-dialog-effect-center-off ease-in
 
-  .k-dialog
+  > .k-dialog
     animation .5s k-dialog-effect-center cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-no-animation, .k-overlay.k-dialog-no-animation .k-dialog
@@ -51,7 +51,7 @@
     // transform translateX(50%)
     // animation 0.3s k-dialog-big-off ease-in
 
-  .k-dialog
+  > .k-dialog
     transform none
     top 0
     left 0
@@ -97,7 +97,7 @@
   .k-dialog-sticky .k-close
     display none
 
-  .k-dialog
+  > .k-dialog
     position absolute
     background #fafafa
     top 100px
