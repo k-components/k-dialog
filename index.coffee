@@ -20,8 +20,10 @@ module.exports = class Dialog
 
   autofocus: =>
     el = @inner.querySelectorAll('[autofocus]')
-    autofocus = el?[0]
-    autofocus?.focus()
+
+    if el?[0]
+      el?[0].focus()
+      true
 
   showChanged: (val, oldval) =>
     if val
@@ -60,7 +62,13 @@ module.exports = class Dialog
     e and e.stopPropagation()
     @setKeydownEvent()
     @setzIndex()
-    @autofocus()
+
+    focused = @autofocus()
+
+    # if we didn't autofocus to an element, focus into the pane
+    if !focused
+      @outer.focus()
+
 
   hide: (e, backbuttonpressed = false) =>
     @removeKeydownEvent()
@@ -89,6 +97,9 @@ module.exports = class Dialog
       for el in els
         if el.zindex > @thisdialog.zindex
           return
+
+      if e.target?.nodeName in ['INPUT', 'TEXTAREA']
+        return
 
       e.stopPropagation()
       @hide()
