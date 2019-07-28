@@ -98,7 +98,7 @@ module.exports = class Dialog
         if el.zindex > @thisdialog.zindex
           return
 
-      if e.target?.nodeName in ['INPUT', 'TEXTAREA']
+      if e.target?.nodeName in ['INPUT', 'TEXTAREA'] && !@model.get('exitWithEsc')
         return
 
       e.stopPropagation()
