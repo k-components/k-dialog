@@ -15,6 +15,9 @@ module.exports = class Dialog
     if @model.get('show')
       @show()
 
+  setExitWithEsc: (v) =>
+    @model.set 'exitWithEsc', v
+
   backbuttonpressed: =>
     @hide(null, true)
 
