@@ -50,7 +50,7 @@ module.exports = class Dialog
 
   setzIndex: => 
     # deterrmine correct z-index
-    if @thisdialog
+    if @thisdialog && !@model.get('static')
       els = document.querySelectorAll('.k-overlay')
       max = 9000
       for el in els
@@ -69,7 +69,7 @@ module.exports = class Dialog
     focused = @autofocus()
 
     # if we didn't autofocus to an element, focus into the pane
-    if !focused
+    if !focused && !@model.get('static')
       @outer.focus()
 
 
