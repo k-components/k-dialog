@@ -19,17 +19,17 @@
 
 .k-overlay.k-dialog-effect-fromup, .k-overlay.k-dialog-big.k-dialog-effect-fromup
   &.hiding > .k-dialog
-    animation .3s k-dialog-effect-fromup-off ease-in
+    animation 0.3s k-dialog-effect-fromup-off ease-in
 
   > .k-dialog
-    animation .5s k-dialog-effect-fromup cubic-bezier(0, 1, 0, 1)
+    animation 0.5s k-dialog-effect-fromup cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-effect-fromright, .k-overlay.k-dialog-big.k-dialog-effect-fromright
   &.hiding > .k-dialog
-    animation .3s k-dialog-effect-fromright-off ease-in
+    animation 0.3s k-dialog-effect-fromright-off ease-in
 
   > .k-dialog
-    animation .5s k-dialog-effect-fromright cubic-bezier(0, 1, 0, 1)
+    animation 0.5s k-dialog-effect-fromright cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-effect-fromleft, .k-overlay.k-dialog-big.k-dialog-effect-fromleft
   &.hiding > .k-dialog
@@ -40,10 +40,10 @@
 
 .k-overlay.k-dialog-effect-center, .k-overlay.k-dialog-big.k-dialog-effect-center
   &.hiding > .k-dialog
-    animation .2s k-dialog-effect-center-off ease-in
+    animation 0.15s k-dialog-effect-center-off ease-in
 
   > .k-dialog
-    animation .3s k-dialog-effect-center cubic-bezier(0, 1, 0, 1)
+    animation 0.3s k-dialog-effect-center cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-no-animation, .k-overlay.k-dialog-no-animation .k-dialog
   animation none
@@ -54,8 +54,6 @@
 
   &.hiding .k-dialog
     opacity 0
-    // transform translateX(50%)
-    // animation 0.3s k-dialog-big-off ease-in
 
   > .k-dialog
     transform none
@@ -66,7 +64,6 @@
     max-height none !important
     box-shadow none
     border-radius 0
-    // animation 0.5s k-dialog-big cubic-bezier(0, 1, 0, 1)
 
     .k-close:hover
       color #777
@@ -92,11 +89,11 @@
   animation 0.5s k-overlay ease
 
   &.hiding
-    animation .5s k-overlay-off ease
+    animation 0.5s k-overlay-off ease
     background rgba(0,0,0,0)
 
     .k-dialog
-      animation .5s k-dialog-off cubic-bezier(0, 1, 0, 1)
+      animation 0.5s k-dialog-off cubic-bezier(0, 1, 0, 1)
       opacity 0
       transform translateY(-150px)
 
