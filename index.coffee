@@ -22,7 +22,7 @@ module.exports = class Dialog
     @hide(null, true)
 
   autofocus: =>
-    el = @inner.querySelectorAll('[autofocus]')
+    el = @inner?.querySelectorAll('[autofocus]')
 
     if el?[0]
       el?[0].focus()
@@ -98,7 +98,7 @@ module.exports = class Dialog
       # apply this only to the topmost k-dialog
       els = document.querySelectorAll('.k-overlay')
       for el in els
-        if el.zindex > @thisdialog.zindex
+        if el.zindex > @thisdialog?.zindex
           return
 
       if e.target?.nodeName in ['INPUT', 'TEXTAREA'] && !@model.get('exitWithEsc')
