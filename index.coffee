@@ -84,7 +84,7 @@ module.exports = class Dialog
       @emit('cancel', backbuttonpressed)
 
     @model.set 'hiding', true
-    setTimeout h, 510
+    setTimeout h, 180
 
   click: (e) =>
     # don't if we are sticly

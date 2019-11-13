@@ -19,24 +19,24 @@
 
 .k-overlay.k-dialog-effect-fromup, .k-overlay.k-dialog-big.k-dialog-effect-fromup
   &.hiding > .k-dialog
-    animation 0.3s k-dialog-effect-fromup-off ease-in
+    animation 0.2s k-dialog-effect-fromup-off ease-in
 
   > .k-dialog
-    animation 0.5s k-dialog-effect-fromup cubic-bezier(0, 1, 0, 1)
+    animation 0.2s k-dialog-effect-fromup cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-effect-fromright, .k-overlay.k-dialog-big.k-dialog-effect-fromright
   &.hiding > .k-dialog
-    animation 0.3s k-dialog-effect-fromright-off ease-in
+    animation 0.2s k-dialog-effect-fromright-off ease-in
 
   > .k-dialog
-    animation 0.5s k-dialog-effect-fromright cubic-bezier(0, 1, 0, 1)
+    animation 0.2s k-dialog-effect-fromright cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-effect-fromleft, .k-overlay.k-dialog-big.k-dialog-effect-fromleft
   &.hiding > .k-dialog
-    animation 0.3s k-dialog-effect-fromleft-off ease-in
+    animation 0.2s k-dialog-effect-fromleft-off ease-in
 
   > .k-dialog
-    animation 0.5s k-dialog-effect-fromleft cubic-bezier(0, 1, 0, 1)
+    animation 0.2s k-dialog-effect-fromleft cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-effect-center, .k-overlay.k-dialog-big.k-dialog-effect-center
   &.hiding > .k-dialog
@@ -69,7 +69,7 @@
       color #777
 
     .k-close
-      transition 0.3s background, 0.3s color
+      transition 0.2s background, 0.2s color
       position absolute
       top 15px
       right 20px
@@ -86,14 +86,14 @@
   height 100%
   background rgba(0,0,0,0.15)
   z-index 9000
-  animation 0.5s k-overlay ease
+  animation 0.2s k-overlay ease
 
   &.hiding
-    // animation 0.5s k-overlay-off ease
     background rgba(0,0,0,0)
+    animation 0.2s k-overlay-off ease
 
     .k-dialog
-      animation 0.5s k-dialog-off cubic-bezier(0, 1, 0, 1)
+      animation 0.2s k-dialog-off cubic-bezier(0, 1, 0, 1)
       opacity 0
       transform translateY(-150px)
 
@@ -110,7 +110,7 @@
     transform translateX(-50%)
     border-radius 10px
     box-shadow 0 0 35px rgba(0,0,0,0.22)
-    animation 0.5s k-dialog cubic-bezier(0, 1, 0, 1)
+    animation 0.2s k-dialog cubic-bezier(0, 1, 0, 1)
     padding 1.2em
     box-sizing border-box
 
@@ -126,7 +126,7 @@
       font-size 32px
 
     .k-close
-      transition 0.3s background
+      transition 0.2s background
       position absolute
       top 5px
       right 5px
