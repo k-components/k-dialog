@@ -69,7 +69,7 @@ module.exports = class Dialog
     focused = @autofocus()
 
     # if we didn't autofocus to an element, focus into the pane
-    if !focused && !@model.get('static')
+    if !focused && !@model.get('static') && @outer
       @outer.focus()
 
 
