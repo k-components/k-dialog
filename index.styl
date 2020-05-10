@@ -87,6 +87,8 @@
   background rgba(0,0,0,0.15)
   z-index 9000
   animation 0.2s k-overlay ease
+  display flex
+  justify-content center
 
   &.hiding
     background rgba(0,0,0,0)
@@ -105,14 +107,14 @@
     position absolute
     background #fafafa
     top 100px
-    left 50%
     width 450px
-    transform translateX(-50%)
     border-radius 10px
     box-shadow 0 0 35px rgba(0,0,0,0.22)
     animation 0.2s k-dialog cubic-bezier(0, 1, 0, 1)
     padding 1.2em
     box-sizing border-box
+    flex: 0 1 auto;
+    align-self: auto;    
 
     .k-close:hover
       background #aaa
@@ -214,18 +216,18 @@
 @keyframes k-dialog
   0%
     opacity 0
-    transform translateY(-150px) translateX(-50%)
+    transform translateY(-150px)
   100%
     opacity 1
-    transform translateY(0) translateX(-50%)
+    transform translateY(0)
 
 @keyframes k-dialog-off
   0%
     opacity 1
-    transform translateY(0) translateX(-50%)
+    transform translateY(0)
   100%
     opacity 0
-    transform translateY(-150px) translateX(-50%)
+    transform translateY(-150px)
 
 @keyframes k-overlay
   0%
