@@ -90,7 +90,7 @@ module.exports = class Dialog
     # don't if we are sticly
     return if @model.get('sticky')
 
-    @hide(e) if e?.target?.getAttribute('data-hide') is '1'
+    @hide(e) if e?.target?.getAttribute('data-hidedialog') is '1'
 
   keydown: (e) =>
     key = e.keyCode or e.which
