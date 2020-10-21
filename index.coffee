@@ -28,10 +28,6 @@ module.exports = class Dialog
       el?[0].focus()
       true
 
-  showChanged: (val, oldval) =>
-    if val
-      @show()
-
   setKeydownEvent: =>
     # don't set if we are sticly
     return if @model.get('sticky') || @keydownSet
@@ -59,6 +55,15 @@ module.exports = class Dialog
 
       @thisdialog.zindex = max + 1
       @model.set 'zindex', @thisdialog.zindex
+
+  showChanged: (val, oldval) =>
+    console.log val, oldval
+
+    if oldval && !val
+      console.trace()
+
+    if val
+      @show()
 
   show: (e) =>
     e and e.preventDefault()
