@@ -57,10 +57,10 @@ module.exports = class Dialog
       @model.set 'zindex', @thisdialog.zindex
 
   showChanged: (val, oldval) =>
-    console.log val, oldval
+    # console.log val, oldval
 
-    if oldval && !val
-      console.trace()
+    # if oldval && !val
+    #   console.trace()
 
     if val
       @show()
@@ -83,13 +83,16 @@ module.exports = class Dialog
     e.stopPropagation() if e
     document.activeElement.blur()
 
-    h = =>
-      @model.del 'show'
-      @model.del 'hiding'
+    if @model.get('noanimation')
       @emit('cancel', backbuttonpressed)
+    else
 
-    @model.set 'hiding', true
-    setTimeout h, 180
+      h = =>
+        @model.del 'hiding'
+        @emit('cancel', backbuttonpressed)
+
+      @model.set 'hiding', true
+      setTimeout h, 180
 
   click: (e) =>
     # don't if we are sticly
