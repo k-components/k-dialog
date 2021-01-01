@@ -3,13 +3,22 @@ module.exports = class Dialog
   view: __dirname
   name: 'k-dialog'
   keydownSet: false
+  listener: null
 
   destroy: ->
     @removeKeydownEvent()
+
+    if @listener
+      @model.removeListener 'change', @listener
+
+    @listener = null
     window.removeEventListener 'popstate', @backbuttonpressed
 
   create: ->
-    @model.on 'change', 'show', @showChanged
+    if @listener
+      @model.removeListener 'change', @listener
+
+    @listener = @model.on 'change', 'show', @showChanged
     window.addEventListener 'popstate', @backbuttonpressed
     
     if @model.get('show')
