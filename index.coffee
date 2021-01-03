@@ -13,6 +13,7 @@ module.exports = class Dialog
 
     @listener = null
     window.removeEventListener 'popstate', @backbuttonpressed
+    @inner = @outer = @thisdialog = null
 
   create: ->
     if @listener
