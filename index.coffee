@@ -57,11 +57,15 @@ module.exports = class Dialog
   setzIndex: => 
     # deterrmine correct z-index
     if @thisdialog && !@model.get('static')
-      els = document.querySelectorAll('.k-overlay')
+      els = document.querySelectorAll('.k-overlay, .k-popup-wrap') 
       max = 9000
+
       for el in els
-        if el.zindex > max
-          max = el.zindex
+        style = window.getComputedStyle(el)
+        zIndexComputed = style.getPropertyValue('z-index')
+        zindex = el.zindex || (zIndexComputed && parseInt(zIndexComputed, 10))
+        if zindex > max
+          max = zindex
 
       @thisdialog.zindex = max + 1
       @model.set 'zindex', @thisdialog.zindex
