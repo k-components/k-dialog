@@ -45,14 +45,21 @@ module.exports = class Dialog
     @keydownSet = true
 
     # use document.body since k-popup should be handled first and it uses document
-    document.body.addEventListener 'keydown', @keydown, true
+
+    if @model.get('ontop')
+      window.addEventListener 'keydown', @keydown, true
+    else
+      document.body.addEventListener 'keydown', @keydown, true
 
   removeKeydownEvent: =>
     return if @model.get('sticky')
 
     @keydownSet = false
 
-    document.body.removeEventListener 'keydown', @keydown, true
+    if @model.get('ontop')
+      window.removeEventListener 'keydown', @keydown, true
+    else
+      document.body.removeEventListener 'keydown', @keydown, true
 
   setzIndex: => 
     # deterrmine correct z-index
