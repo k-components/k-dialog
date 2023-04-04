@@ -1,6 +1,6 @@
 {
   "name": "k-dialog",
-  "version": "1.0.64",
+  "version": "1.0.65",
   "description": "k-dialog\r ========",
   "main": "index.js",
   "scripts": {
