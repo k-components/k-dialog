@@ -1,8 +1,8 @@
 {
   "name": "k-dialog",
-  "version": "1.0.65",
+  "version": "1.0.66",
   "description": "k-dialog\r ========",
-  "main": "index.js",
+  "main": "index.coffee",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
