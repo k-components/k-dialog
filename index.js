@@ -9,7 +9,7 @@
  */
 
 let Dialog;
-module.exports = (Dialog = (function() {
+module.exports = (Dialog = (function () {
   Dialog = class Dialog {
     constructor() {
       this.setExitWithEsc = this.setExitWithEsc.bind(this);
@@ -23,6 +23,8 @@ module.exports = (Dialog = (function() {
       this.hide = this.hide.bind(this);
       this.click = this.click.bind(this);
       this.keydown = this.keydown.bind(this);
+      this.removeBackButtonEventListener = this.removeBackButtonEventListener.bind(this);
+      this.addBackButtonEventListener = this.addBackButtonEventListener.bind(this);
     }
 
     static initClass() {
@@ -40,29 +42,61 @@ module.exports = (Dialog = (function() {
       }
 
       this.listener = null;
-      window.removeEventListener('popstate', this.backbuttonpressed);
+      this.removeBackButtonEventListener()
       return this.inner = (this.outer = (this.thisdialog = null));
     }
 
     create() {
+      // console.log('create', this.model.get('from'))
       if (this.listener) {
         this.model.removeListener('change', this.listener);
       }
 
       this.listener = this.model.on('change', 'show', this.showChanged);
-      window.addEventListener('popstate', this.backbuttonpressed);
-    
+
+      this.addBackButtonEventListener();
+
       if (this.model.get('show')) {
         return this.show();
       }
+    }
+
+    removeBackButtonEventListener() {
+      window.removeEventListener('popstate', this.backbuttonpressed);
+
+      const index = window.kDialogStack.findIndex(listener => listener == this.backbuttonpressed)
+
+      if (index != -1) {
+        window.kDialogStack.splice(index);
+      }
+    }
+
+    // We need to reverse the order of popstate events on window so that the last added event firest first
+    addBackButtonEventListener() {
+      window.kDialogStack = window.kDialogStack || [];
+
+      // Remove
+      window.kDialogStack.forEach(listener => {
+        window.removeEventListener('popstate', listener);
+      });
+
+      window.addEventListener('popstate', this.backbuttonpressed);
+
+      // Add back
+      window.kDialogStack.forEach(listener => {
+        window.addEventListener('popstate', listener);
+      });
+
+      window.kDialogStack.push(this.backbuttonpressed);
     }
 
     setExitWithEsc(v) {
       return this.model.set('exitWithEsc', v);
     }
 
-    backbuttonpressed() {
-      return this.hide(null, true);
+    backbuttonpressed(e) {
+      e.stopImmediatePropagation();
+      return this.hide(e, true);
     }
 
     autofocus() {
@@ -103,11 +137,11 @@ module.exports = (Dialog = (function() {
       }
     }
 
-    setzIndex() { 
+    setzIndex() {
       // deterrmine correct z-index
       if (this.thisdialog && !this.model.get('static')) {
         let zindex;
-        const els = document.querySelectorAll('.k-overlay, .k-popup-wrap'); 
+        const els = document.querySelectorAll('.k-overlay, .k-popup-wrap');
         let max = 9000;
 
         for (var el of Array.from(els)) {
@@ -125,11 +159,6 @@ module.exports = (Dialog = (function() {
     }
 
     showChanged(val, oldval) {
-      // console.log val, oldval
-
-      // if oldval && !val
-      //   console.trace()
-
       if (val) {
         return this.show();
       }
