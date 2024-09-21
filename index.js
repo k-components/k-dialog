@@ -10,226 +10,244 @@
 
 let Dialog;
 module.exports = (Dialog = (function () {
-  Dialog = class Dialog {
-    constructor() {
-      this.setExitWithEsc = this.setExitWithEsc.bind(this);
-      this.backbuttonpressed = this.backbuttonpressed.bind(this);
-      this.autofocus = this.autofocus.bind(this);
-      this.setKeydownEvent = this.setKeydownEvent.bind(this);
-      this.removeKeydownEvent = this.removeKeydownEvent.bind(this);
-      this.setzIndex = this.setzIndex.bind(this);
-      this.showChanged = this.showChanged.bind(this);
-      this.show = this.show.bind(this);
-      this.hide = this.hide.bind(this);
-      this.click = this.click.bind(this);
-      this.keydown = this.keydown.bind(this);
-      this.removeBackButtonEventListener = this.removeBackButtonEventListener.bind(this);
-      this.addBackButtonEventListener = this.addBackButtonEventListener.bind(this);
-    }
+	Dialog = class Dialog {
+		constructor() {
+			this.setExitWithEsc = this.setExitWithEsc.bind(this);
+			this.backbuttonpressed = this.backbuttonpressed.bind(this);
+			this.autofocus = this.autofocus.bind(this);
+			this.setzIndex = this.setzIndex.bind(this);
+			this.showChanged = this.showChanged.bind(this);
+			this.show = this.show.bind(this);
+			this.hide = this.hide.bind(this);
+			this.click = this.click.bind(this);
+			this.keydown = this.keydown.bind(this);
+			this.removeWindowEventListeners = this.removeWindowEventListeners.bind(this);
+			this.addWindowEventListeners = this.addWindowEventListeners.bind(this);
+		}
 
-    static initClass() {
-      this.prototype.view = __dirname;
-      this.prototype.name = 'k-dialog';
-      this.prototype.keydownSet = false;
-      this.prototype.listener = null;
-    }
+		static initClass() {
+			this.prototype.view = __dirname;
+			this.prototype.name = 'k-dialog';
+			this.prototype.keydownSet = false;
+			this.prototype.listener = null;
+		}
 
-    destroy() {
-      this.removeKeydownEvent();
+		destroy() {
+			this.removeWindowEventListeners();
 
-      if (this.listener) {
-        this.model.removeListener('change', this.listener);
-      }
+			if (this.listener) {
+				this.model.removeListener('change', this.listener);
+			}
 
-      this.listener = null;
-      this.removeBackButtonEventListener()
-      return this.inner = (this.outer = (this.thisdialog = null));
-    }
+			this.listener = null;
+			return this.inner = (this.outer = (this.thisdialog = null));
+		}
 
-    create() {
-      // console.log('create', this.model.get('from'))
-      if (this.listener) {
-        this.model.removeListener('change', this.listener);
-      }
+		create() {
+			// console.log('create', this.model.get('from'))
+			if (this.listener) {
+				this.model.removeListener('change', this.listener);
+			}
 
-      this.listener = this.model.on('change', 'show', this.showChanged);
+			this.listener = this.model.on('change', 'show', this.showChanged);
 
-      this.addBackButtonEventListener();
+			if (this.model.get('show')) {
+				return this.show();
+			}
+		}
 
-      if (this.model.get('show')) {
-        return this.show();
-      }
-    }
+		removeWindowEventListeners() {
+			// Remove from window
+			window.removeEventListener('popstate', this.backbuttonpressed);
+			window.removeEventListener('keydown', this.keydown);
 
-    removeBackButtonEventListener() {
-      window.removeEventListener('popstate', this.backbuttonpressed);
+			// Remove from stack
+			const index = window.kDialogStack.findIndex(listeners => listeners.keydown == this.keydown)
+			// console.log('removeWindowEventListeners', this, { index }, window.kDialogStack)
 
-      const index = window.kDialogStack.findIndex(listener => listener == this.backbuttonpressed)
+			if (index != -1) {
+				window.kDialogStack.splice(index);
+			}
+		}
 
-      if (index != -1) {
-        window.kDialogStack.splice(index);
-      }
-    }
+		// Keep the order of the events on DOM the same as the dialogs are on the screen
+		addWindowEventListeners() {
+			window.kDialogStack = window.kDialogStack || [];
 
-    // We need to reverse the order of popstate events on window so that the last added event firest first
-    addBackButtonEventListener() {
-      window.kDialogStack = window.kDialogStack || [];
+			// See if we already are in the stack - if so, don't attach again
+			const found = window.kDialogStack.find(listeners => listeners.keydown == this.keydown);
+			// console.log('addWindowEventListeners this', this);
+			// console.log('addWindowEventListeners found',  found, window.kDialogStack);
+			// console.log('this.backbuttonpressed',  this.backbuttonpressed);
+			// console.log('this.keydown',  this.keydown);
 
-      // Remove
-      window.kDialogStack.forEach(listener => {
-        window.removeEventListener('popstate', listener);
-      });
+			if (found) {
+				return;
+			}
 
-      window.addEventListener('popstate', this.backbuttonpressed);
+			// First detach the listeners from window
+			window.kDialogStack.forEach(listeners => {
+				window.removeEventListener('popstate', listeners.popstate);
+				window.removeEventListener('keydown', listeners.keydown);
+			});
 
-      // Add back
-      window.kDialogStack.forEach(listener => {
-        window.addEventListener('popstate', listener);
-      });
+			// Add our listener to the window so it fires first
+			window.addEventListener('popstate', this.backbuttonpressed);
+			window.addEventListener('keydown', this.keydown);
 
-      window.kDialogStack.push(this.backbuttonpressed);
-    }
+			// Add the rest of the listeners to the window
+			window.kDialogStack.forEach(listeners => {
+				window.addEventListener('popstate', listeners.popstate);
+				window.addEventListener('keydown', listeners.keydown);
+			});
 
-    setExitWithEsc(v) {
-      return this.model.set('exitWithEsc', v);
-    }
+			// Add our listener to stack (as first, so that the order on the stack and window are the same)
+			window.kDialogStack.unshift({
+				popstate: this.backbuttonpressed,
+				keydown: this.keydown
+			});
+		}
 
-    backbuttonpressed(e) {
-      e.stopImmediatePropagation();
-      return this.hide(e, true);
-    }
+		backbuttonpressed(e) {
+			e.stopImmediatePropagation();
+			return this.hide(e, true);
+		}
 
-    autofocus() {
-      const el = this.inner != null ? this.inner.querySelectorAll('[autofocus]') : undefined;
+		setKeydownEvent() {
+			// don't set if we are sticly
+			if (this.keydownSet) { return; }
 
-      if (el != null ? el[0] : undefined) {
-        if (el != null) {
-          el[0].focus();
-        }
-        return true;
-      }
-    }
+			this.keydownSet = true;
 
-    setKeydownEvent() {
-      // don't set if we are sticly
-      if (this.model.get('sticky') || this.keydownSet) { return; }
+			// use document.body since k-popup should be handled first and it uses document
 
-      this.keydownSet = true;
+			if (this.model.get('ontop')) {
+				return window.addEventListener('keydown', this.keydown, true);
+			} else {
+				return document.body.addEventListener('keydown', this.keydown, true);
+			}
+		}
 
-      // use document.body since k-popup should be handled first and it uses document
+		removeKeydownEvent() {
+			if (this.model.get('sticky')) { return; }
 
-      if (this.model.get('ontop')) {
-        return window.addEventListener('keydown', this.keydown, true);
-      } else {
-        return document.body.addEventListener('keydown', this.keydown, true);
-      }
-    }
+			this.keydownSet = false;
 
-    removeKeydownEvent() {
-      if (this.model.get('sticky')) { return; }
+			if (this.model.get('ontop')) {
+				return window.removeEventListener('keydown', this.keydown, true);
+			} else {
+				return document.body.removeEventListener('keydown', this.keydown, true);
+			}
+		}
 
-      this.keydownSet = false;
+		keydown(e) {
+			const key = e.keyCode || e.which;
+			if (key === 27) {
+				// apply this only to the topmost k-dialog
+				const els = document.querySelectorAll('.k-overlay');
+				for (var el of Array.from(els)) {
+					if (el.zindex > (this.thisdialog != null ? this.thisdialog.zindex : undefined)) {
+						return;
+					}
+				}
 
-      if (this.model.get('ontop')) {
-        return window.removeEventListener('keydown', this.keydown, true);
-      } else {
-        return document.body.removeEventListener('keydown', this.keydown, true);
-      }
-    }
+				if (['INPUT', 'TEXTAREA'].includes(e.target != null ? e.target.nodeName : undefined) && !this.model.get('exitWithEsc')) {
+					return;
+				}
 
-    setzIndex() {
-      // deterrmine correct z-index
-      if (this.thisdialog && !this.model.get('static')) {
-        let zindex;
-        const els = document.querySelectorAll('.k-overlay, .k-popup-wrap');
-        let max = 9000;
+				e.stopPropagation();
+				return this.hide();
+			}
+		}
 
-        for (var el of Array.from(els)) {
-          var style = window.getComputedStyle(el);
-          var zIndexComputed = style.getPropertyValue('z-index');
-          zindex = el.zindex || (zIndexComputed && parseInt(zIndexComputed, 10));
-          if (zindex > max) {
-            max = zindex;
-          }
-        }
+		click(e) {
+			// don't if we are sticly
+			if (this.model.get('sticky')) { return; }
 
-        this.thisdialog.zindex = max + 1;
-        return this.model.set('zindex', this.thisdialog.zindex);
-      }
-    }
+			if (__guard__(e != null ? e.target : undefined, x => x.getAttribute('data-hidedialog')) === '1') { return this.hide(e); }
+		}
 
-    showChanged(val, oldval) {
-      if (val) {
-        return this.show();
-      }
-    }
+		autofocus() {
+			const el = this.inner != null ? this.inner.querySelectorAll('[autofocus]') : undefined;
 
-    show(e) {
-      e && e.preventDefault();
-      e && e.stopPropagation();
-      this.setKeydownEvent();
-      this.setzIndex();
+			if (el != null ? el[0] : undefined) {
+				if (el != null) {
+					el[0].focus();
+				}
+				return true;
+			}
+		}
 
-      const focused = this.autofocus();
+		setExitWithEsc(v) {
+			return this.model.set('exitWithEsc', v);
+		}
 
-      // if we didn't autofocus to an element, focus into the pane
-      if (!focused && !this.model.get('static') && this.outer) {
-        return this.outer.focus();
-      }
-    }
+		setzIndex() {
+			// deterrmine correct z-index
+			if (this.thisdialog && !this.model.get('static')) {
+				let zindex;
+				const els = document.querySelectorAll('.k-overlay, .k-popup-wrap');
+				let max = 9000;
+
+				for (var el of Array.from(els)) {
+					var style = window.getComputedStyle(el);
+					var zIndexComputed = style.getPropertyValue('z-index');
+					zindex = el.zindex || (zIndexComputed && parseInt(zIndexComputed, 10));
+					if (zindex > max) {
+						max = zindex;
+					}
+				}
+
+				this.thisdialog.zindex = max + 1;
+				return this.model.set('zindex', this.thisdialog.zindex);
+			}
+		}
+
+		showChanged(val, oldval) {
+			if (val) {
+				return this.show();
+			}
+		}
+
+		show(e) {
+			e && e.preventDefault();
+			e && e.stopPropagation();
+			this.addWindowEventListeners();
+			this.setzIndex();
+
+			const focused = this.autofocus();
+
+			// if we didn't autofocus to an element, focus into the pane
+			if (!focused && !this.model.get('static') && this.outer) {
+				return this.outer.focus();
+			}
+		}
 
 
-    hide(e, backbuttonpressed) {
-      if (backbuttonpressed == null) { backbuttonpressed = false; }
-      this.removeKeydownEvent();
-      if (e) { e.stopPropagation(); }
-      document.activeElement.blur();
+		hide(e, backbuttonpressed) {
+			if (backbuttonpressed == null) { backbuttonpressed = false; }
+			this.removeWindowEventListeners();
+			if (e) { e.stopPropagation(); }
+			document.activeElement.blur();
 
-      if (this.model.get('noanimation')) {
-        return this.emit('cancel', backbuttonpressed);
-      } else {
+			if (this.model.get('noanimation')) {
+				return this.emit('cancel', backbuttonpressed);
+			} else {
 
-        const h = () => {
-          this.model.del('hiding');
-          return this.emit('cancel', backbuttonpressed);
-        };
+				const h = () => {
+					this.model.del('hiding');
+					return this.emit('cancel', backbuttonpressed);
+				};
 
-        this.model.set('hiding', true);
-        return setTimeout(h, 180);
-      }
-    }
-
-    click(e) {
-      // don't if we are sticly
-      if (this.model.get('sticky')) { return; }
-
-      if (__guard__(e != null ? e.target : undefined, x => x.getAttribute('data-hidedialog')) === '1') { return this.hide(e); }
-    }
-
-    keydown(e) {
-      const key = e.keyCode || e.which;
-      if (key === 27) {
-        // apply this only to the topmost k-dialog
-        const els = document.querySelectorAll('.k-overlay');
-        for (var el of Array.from(els)) {
-          if (el.zindex > (this.thisdialog != null ? this.thisdialog.zindex : undefined)) {
-            return;
-          }
-        }
-
-        if (['INPUT', 'TEXTAREA'].includes(e.target != null ? e.target.nodeName : undefined) && !this.model.get('exitWithEsc')) {
-          return;
-        }
-
-        e.stopPropagation();
-        return this.hide();
-      }
-    }
-  };
-  Dialog.initClass();
-  return Dialog;
+				this.model.set('hiding', true);
+				return setTimeout(h, 180);
+			}
+		}
+	};
+	Dialog.initClass();
+	return Dialog;
 })());
 
 function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
+	return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
 }
