@@ -62,11 +62,13 @@ module.exports = (Dialog = (function () {
 			window.removeEventListener('keydown', this.keydown);
 
 			// Remove from stack
-			const index = window.kDialogStack.findIndex(listeners => listeners.keydown == this.keydown)
-			// console.log('removeWindowEventListeners', this, { index }, window.kDialogStack)
+			if (window.kDialogStack) {
+				const index = window.kDialogStack.findIndex(listeners => listeners.keydown == this.keydown)
+				// console.log('removeWindowEventListeners', this, { index }, window.kDialogStack)
 
-			if (index != -1) {
-				window.kDialogStack.splice(index);
+				if (index != -1) {
+					window.kDialogStack.splice(index);
+				}
 			}
 		}
 
