@@ -58,8 +58,8 @@ module.exports = (Dialog = (function () {
 
 		removeWindowEventListeners() {
 			// Remove from window
-			window.removeEventListener('popstate', this.backbuttonpressed);
-			window.removeEventListener('keydown', this.keydown);
+			window.removeEventListener('popstate', this.backbuttonpressed, true);
+			window.removeEventListener('keydown', this.keydown, true);
 
 			// Remove from stack
 			if (window.kDialogStack) {
@@ -89,18 +89,18 @@ module.exports = (Dialog = (function () {
 
 			// First detach the listeners from window
 			window.kDialogStack.forEach(listeners => {
-				window.removeEventListener('popstate', listeners.popstate);
-				window.removeEventListener('keydown', listeners.keydown);
+				window.removeEventListener('popstate', listeners.popstate, true);
+				window.removeEventListener('keydown', listeners.keydown, true);
 			});
 
 			// Add our listener to the window so it fires first
-			window.addEventListener('popstate', this.backbuttonpressed);
-			window.addEventListener('keydown', this.keydown);
+			window.addEventListener('popstate', this.backbuttonpressed, true);
+			window.addEventListener('keydown', this.keydown, true);
 
 			// Add the rest of the listeners to the window
 			window.kDialogStack.forEach(listeners => {
-				window.addEventListener('popstate', listeners.popstate);
-				window.addEventListener('keydown', listeners.keydown);
+				window.addEventListener('popstate', listeners.popstate, true);
+				window.addEventListener('keydown', listeners.keydown, true);
 			});
 
 			// Add our listener to stack (as first, so that the order on the stack and window are the same)
@@ -115,43 +115,18 @@ module.exports = (Dialog = (function () {
 			return this.hide(e, true);
 		}
 
-		setKeydownEvent() {
-			// don't set if we are sticly
-			if (this.keydownSet) { return; }
-
-			this.keydownSet = true;
-
-			// use document.body since k-popup should be handled first and it uses document
-
-			if (this.model.get('ontop')) {
-				return window.addEventListener('keydown', this.keydown, true);
-			} else {
-				return document.body.addEventListener('keydown', this.keydown, true);
-			}
-		}
-
-		removeKeydownEvent() {
-			if (this.model.get('sticky')) { return; }
-
-			this.keydownSet = false;
-
-			if (this.model.get('ontop')) {
-				return window.removeEventListener('keydown', this.keydown, true);
-			} else {
-				return document.body.removeEventListener('keydown', this.keydown, true);
-			}
-		}
-
 		keydown(e) {
+			console.log(e)
 			const key = e.keyCode || e.which;
 			if (key === 27) {
-				// apply this only to the topmost k-dialog
-				const els = document.querySelectorAll('.k-overlay');
-				for (var el of Array.from(els)) {
-					if (el.zindex > (this.thisdialog != null ? this.thisdialog.zindex : undefined)) {
-						return;
-					}
-				}
+				// // apply this only to the topmost k-dialog
+				// const els = document.querySelectorAll('.k-overlay');
+				// for (var el of Array.from(els)) {
+				// 	if (el.zindex > (this.thisdialog != null ? this.thisdialog.zindex : undefined)) {
+				// 		console.log('1..')
+				// 		return;
+				// 	}
+				// }
 
 				if (['INPUT', 'TEXTAREA'].includes(e.target != null ? e.target.nodeName : undefined) && !this.model.get('exitWithEsc')) {
 					return;
@@ -201,6 +176,7 @@ module.exports = (Dialog = (function () {
 				}
 
 				this.thisdialog.zindex = max + 1;
+				// console.log('this.thisdialog.zindex', this.thisdialog.zindex)
 				return this.model.set('zindex', this.thisdialog.zindex);
 			}
 		}
