@@ -116,7 +116,6 @@ module.exports = (Dialog = (function () {
 		}
 
 		keydown(e) {
-			console.log(e)
 			const key = e.keyCode || e.which;
 			if (key === 27) {
 				// // apply this only to the topmost k-dialog
