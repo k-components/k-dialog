@@ -202,6 +202,12 @@ module.exports = (Dialog = (function () {
 
 
 		hide(e, backbuttonpressed) {
+			// Check from the parent if we can hide this dialog
+			// TODO: Is there a better way to do this?
+			if (this.parent.canHideDialog && !this.parent.canHideDialog()) {
+				return false;
+			}
+
 			if (backbuttonpressed == null) { backbuttonpressed = false; }
 			this.removeWindowEventListeners();
 			if (e) { e.stopPropagation(); }
