@@ -131,7 +131,7 @@ module.exports = (Dialog = (function () {
 					return;
 				}
 
-				e.stopPropagation();
+				e.stopImmediatePropagation();
 				return this.hide();
 			}
 		}
