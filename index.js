@@ -116,18 +116,10 @@ module.exports = (Dialog = (function () {
 		}
 
 		keydown(e) {
-			const key = e.keyCode || e.which;
-			if (key === 27) {
-				// // apply this only to the topmost k-dialog
-				// const els = document.querySelectorAll('.k-overlay');
-				// for (var el of Array.from(els)) {
-				// 	if (el.zindex > (this.thisdialog != null ? this.thisdialog.zindex : undefined)) {
-				// 		console.log('1..')
-				// 		return;
-				// 	}
-				// }
+			if (e.key === 'Escape') {
+				console.log(e, this.model.get('exitWithEsc'))
 
-				if (['INPUT', 'TEXTAREA'].includes(e.target != null ? e.target.nodeName : undefined) && !this.model.get('exitWithEsc')) {
+				if ((['INPUT', 'TEXTAREA'].includes(e.target.nodeName) || document.activeElement.isContentEditable) && !this.model.get('exitWithEsc')) {
 					return;
 				}
 
