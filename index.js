@@ -117,7 +117,6 @@ module.exports = (Dialog = (function () {
 
 		keydown(e) {
 			if (e.key === 'Escape') {
-				console.log(e, this.model.get('exitWithEsc'))
 
 				if ((['INPUT', 'TEXTAREA'].includes(e.target.nodeName) || document.activeElement.isContentEditable) && !this.model.get('exitWithEsc')) {
 					return;
