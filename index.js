@@ -67,7 +67,7 @@ module.exports = (Dialog = (function () {
 				// console.log('removeWindowEventListeners', this, { index }, window.kDialogStack)
 
 				if (index != -1) {
-					window.kDialogStack.splice(index);
+					window.kDialogStack.splice(index, 1);
 				}
 			}
 		}
@@ -79,7 +79,7 @@ module.exports = (Dialog = (function () {
 			// See if we already are in the stack - if so, don't attach again
 			const found = window.kDialogStack.find(listeners => listeners.keydown == this.keydown);
 			// console.log('addWindowEventListeners this', this);
-			// console.log('addWindowEventListeners found',  found, window.kDialogStack);
+			// console.log('addWindowEventListeners found', { found }, window.kDialogStack);
 			// console.log('this.backbuttonpressed',  this.backbuttonpressed);
 			// console.log('this.keydown',  this.keydown);
 
@@ -121,6 +121,7 @@ module.exports = (Dialog = (function () {
 				if ((['INPUT', 'TEXTAREA'].includes(e.target.nodeName) || document.activeElement.isContentEditable) && !this.model.get('exitWithEsc')) {
 					return;
 				}
+				console.log('Esc', this)
 
 				e.stopImmediatePropagation();
 				return this.hide();
