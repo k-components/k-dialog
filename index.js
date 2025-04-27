@@ -8,6 +8,8 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 
+const util = require('sc-util')
+
 let Dialog;
 module.exports = (Dialog = (function () {
 	Dialog = class Dialog {
@@ -70,10 +72,17 @@ module.exports = (Dialog = (function () {
 					window.kDialogStack.splice(index, 1);
 				}
 			}
+
+			// util.removeEventFromWindow('popstate', this.backbuttonpressed)
+			// util.removeEventFromWindow('keydown', this.keydown)
 		}
 
 		// Keep the order of the events on DOM the same as the dialogs are on the screen
 		addWindowEventListeners() {
+			// util.addEventToWindow('popstate', this.backbuttonpressed)
+			// util.addEventToWindow('keydown', this.keydown)
+			// return;
+
 			window.kDialogStack = window.kDialogStack || [];
 
 			// See if we already are in the stack - if so, don't attach again
