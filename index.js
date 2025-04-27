@@ -121,7 +121,6 @@ module.exports = (Dialog = (function () {
 				if ((['INPUT', 'TEXTAREA'].includes(e.target.nodeName) || document.activeElement.isContentEditable) && !this.model.get('exitWithEsc')) {
 					return;
 				}
-				console.log('Esc', this)
 
 				e.stopImmediatePropagation();
 				return this.hide();
