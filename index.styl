@@ -1,257 +1,260 @@
 .k-overlay.k-overlay-static
-  position relative
-  top inherit
-  left inherit
-  width inherit
-  height auto
-  background inherit
-  z-index 1
-  animation none
+	position relative
+	top inherit
+	left inherit
+	width inherit
+	height auto
+	background inherit
+	z-index 1
+	animation none
 
-  > .k-dialog
-    animation none !important
-    position static
-    transform none
-    margin auto
+	> .k-dialog
+		animation none !important
+		position static
+		transform none
+		margin auto
 
 .k-overlay.k-overlay-block
-  display block
+	display block
 
 .k-overlay.k-overlay-fixed
-  position fixed
+	position fixed
 
-  > .k-dialog
-    position relative
+	> .k-dialog
+		position relative
 
 .k-overlay.k-dialog-effect-fromup, .k-overlay.k-dialog-big.k-dialog-effect-fromup
-  &.hiding > .k-dialog
-    animation 0.2s k-dialog-effect-fromup-off ease-in
+	&.hiding > .k-dialog
+		animation 0.2s k-dialog-effect-fromup-off ease-in
 
-  > .k-dialog
-    animation 0.2s k-dialog-effect-fromup cubic-bezier(0, 1, 0, 1)
+	> .k-dialog
+		animation 0.2s k-dialog-effect-fromup cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-effect-fromright, .k-overlay.k-dialog-big.k-dialog-effect-fromright
-  &.hiding > .k-dialog
-    animation 0.2s k-dialog-effect-fromright-off ease-in
+	&.hiding > .k-dialog
+		animation 0.2s k-dialog-effect-fromright-off ease-in
 
-  > .k-dialog
-    animation 0.2s k-dialog-effect-fromright cubic-bezier(0, 1, 0, 1)
+	> .k-dialog
+		animation 0.2s k-dialog-effect-fromright cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-effect-fromleft, .k-overlay.k-dialog-big.k-dialog-effect-fromleft
-  &.hiding > .k-dialog
-    animation 0.2s k-dialog-effect-fromleft-off ease-in
+	&.hiding > .k-dialog
+		animation 0.2s k-dialog-effect-fromleft-off ease-in
 
-  > .k-dialog
-    animation 0.2s k-dialog-effect-fromleft cubic-bezier(0, 1, 0, 1)
+	> .k-dialog
+		animation 0.2s k-dialog-effect-fromleft cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-effect-center, .k-overlay.k-dialog-big.k-dialog-effect-center
-  &.hiding > .k-dialog
-    animation 0.2s k-dialog-effect-center-off ease-in
+	&.hiding > .k-dialog
+		animation 0.2s k-dialog-effect-center-off ease-in
 
-  > .k-dialog
-    animation 0.2s k-dialog-effect-center cubic-bezier(0, 1, 0, 1)
+	> .k-dialog
+		animation 0.2s k-dialog-effect-center cubic-bezier(0, 1, 0, 1)
 
 .k-overlay.k-dialog-no-animation, .k-overlay.k-dialog-no-animation .k-dialog
-  animation none
+	animation none
 
 .k-overlay.k-dialog-big
-  background none
-  animation none
+	background none
+	animation none
 
-  &.hiding
-    background none
-    animation none
+	&.hiding
+		background none
+		animation none
 
-  &.hiding .k-dialog
-    opacity 0
-    animation none
+	&.hiding .k-dialog
+		opacity 0
+		animation none
 
-  > .k-dialog
-    transform none
-    top 0
-    left 0
-    width 100%
-    height 100%
-    max-height none !important
-    box-shadow none
-    border-radius 0
+	> .k-dialog
+		transform none
+		top 0
+		left 0
+		width 100%
+		height 100%
+		max-height none !important
+		box-shadow none
+		border-radius 0
 
-    .k-close:hover
-      color #777
+		.k-close:hover
+			color #777
 
-    .k-close
-      transition 0.2s background, 0.2s color
-      position absolute
-      top 15px
-      right 20px
-      font-size 60px
-      width 60px
-      height 60px
-      vertical-align middle
+		.k-close
+			transition 0.2s background, 0.2s color
+			position absolute
+			top 15px
+			right 20px
+			font-size 60px
+			width 60px
+			height 60px
+			vertical-align middle
+
+.k-overlay.k-overlay-align-start
+	align-items: start
 
 .k-overlay
-  position absolute
-  top 0
-  left 0
-  width 100%
-  height 100%
-  background rgba(0,0,0,0.15)
-  z-index 9000
-  animation 0.2s k-overlay ease
-  display flex
-  align-items center
-  justify-content center
+	position absolute
+	top 0
+	left 0
+	width 100%
+	height 100%
+	background rgba(0,0,0,0.15)
+	z-index 9000
+	animation 0.2s k-overlay ease
+	display flex
+	align-items center
+	justify-content center
 
-  &.hiding
-    background rgba(0,0,0,0)
-    animation 0.2s k-overlay-off ease
+	&.hiding
+		background rgba(0,0,0,0)
+		animation 0.2s k-overlay-off ease
 
-    .k-dialog
-      animation 0.2s k-dialog-off cubic-bezier(0, 1, 0, 1)
-      opacity 0
-      transform translateY(-150px)
+		.k-dialog
+			animation 0.2s k-dialog-off cubic-bezier(0, 1, 0, 1)
+			opacity 0
+			transform translateY(-150px)
 
-  .k-dialog-sticky .k-close
-    display none
+	.k-dialog-sticky .k-close
+		display none
 
-  > .k-dialog.top-10
-    top 10%
-  
-  > .k-dialog.w-550
-    width 550px
-    
-  > .k-dialog
-    outline none
-    position absolute
-    width 450px
-    border-radius 10px
-    box-shadow 0 0 35px rgba(0,0,0,0.22)
-    animation 0.2s k-dialog cubic-bezier(0, 1, 0, 1)
-    box-sizing border-box
-    flex: 0 1 auto;
-    align-self: auto;    
+	> .k-dialog.top-10
+		top 10%
+	
+	> .k-dialog.w-550
+		width 550px
+		
+	> .k-dialog
+		outline none
+		position absolute
+		width 450px
+		border-radius 10px
+		box-shadow 0 0 35px rgba(0,0,0,0.22)
+		animation 0.2s k-dialog cubic-bezier(0, 1, 0, 1)
+		box-sizing border-box
+		flex: 0 1 auto;
+		align-self: auto;    
 
-    .k-close:hover
-      background #aaa
+		.k-close:hover
+			background #aaa
 
-    &.ion-icons .k-close:hover
-      background inherit
+		&.ion-icons .k-close:hover
+			background inherit
 
-    &.ion-icons .k-close
-      background transparent
-      color #aaa
+		&.ion-icons .k-close
+			background transparent
+			color #aaa
 
-    .k-close
-      transition 0.2s background
-      position absolute
-      top 5px
-      right 5px
-      font-size 40px
-      width 40px
-      text-align center
-      height 40px
-      background #ddd
-      border-radius 100%
-      color #fff
-      line-height 40px
-      cursor pointer
-      z-index 1
+		.k-close
+			transition 0.2s background
+			position absolute
+			top 5px
+			right 5px
+			font-size 40px
+			width 40px
+			text-align center
+			height 40px
+			background #ddd
+			border-radius 100%
+			color #fff
+			line-height 40px
+			cursor pointer
+			z-index 1
 
-    h1.k-dialog-title, h2.k-dialog-title
-      font italic normal 22px/44px Lora, Cambria, Georgia
-      text-align center
-      color #555
-      margin 0
-      padding 0
+		h1.k-dialog-title, h2.k-dialog-title
+			font italic normal 22px/44px Lora, Cambria, Georgia
+			text-align center
+			color #555
+			margin 0
+			padding 0
 
 @keyframes k-dialog-effect-fromup
-  0%
-    opacity 0
-    transform translateY(-50%)
-  100%
-    opacity 1
-    transform translateY(0)
+	0%
+		opacity 0
+		transform translateY(-50%)
+	100%
+		opacity 1
+		transform translateY(0)
 
 @keyframes k-dialog-effect-fromup-off
-  0%
-    opacity 1
-    transform translateY(0)
-  100%
-    opacity 0
-    transform translateY(-50%)
+	0%
+		opacity 1
+		transform translateY(0)
+	100%
+		opacity 0
+		transform translateY(-50%)
 
 @keyframes k-dialog-effect-fromright
-  0%
-    opacity 0
-    transform translateX(50%)
-  100%
-    opacity 1
-    transform translateX(0)
+	0%
+		opacity 0
+		transform translateX(50%)
+	100%
+		opacity 1
+		transform translateX(0)
 
 @keyframes k-dialog-effect-fromright-off
-  0%
-    opacity 1
-    transform translateX(0)
-  100%
-    opacity 0
-    transform translateX(50%)
+	0%
+		opacity 1
+		transform translateX(0)
+	100%
+		opacity 0
+		transform translateX(50%)
 
 @keyframes k-dialog-effect-fromleft
-  0%
-    opacity 0
-    transform translateX(50%)
-  100%
-    opacity 1
-    transform  translateX(0)
+	0%
+		opacity 0
+		transform translateX(50%)
+	100%
+		opacity 1
+		transform  translateX(0)
 
 @keyframes k-dialog-effect-fromleft-off
-  0%
-    opacity 1
-    transform translateX(0)
-  100%
-    opacity 0
-    transform translateX(50%)
+	0%
+		opacity 1
+		transform translateX(0)
+	100%
+		opacity 0
+		transform translateX(50%)
 
 @keyframes k-dialog-effect-center
-  0%
-    opacity 0
-    transform scale(0)
-  100%
-    opacity 1
-    transform scale(1)
+	0%
+		opacity 0
+		transform scale(0)
+	100%
+		opacity 1
+		transform scale(1)
 
 @keyframes k-dialog-effect-center-off
-  0%
-    opacity 1
-    transform scale(1)
-  100%
-    opacity 0
-    transform scale(0)
+	0%
+		opacity 1
+		transform scale(1)
+	100%
+		opacity 0
+		transform scale(0)
 
 @keyframes k-dialog
-  0%
-    opacity 0
-    transform translateY(-150px)
-  100%
-    opacity 1
-    transform translateY(0)
+	0%
+		opacity 0
+		transform translateY(-150px)
+	100%
+		opacity 1
+		transform translateY(0)
 
 @keyframes k-dialog-off
-  0%
-    opacity 1
-    transform translateY(0)
-  100%
-    opacity 0
-    transform translateY(-150px)
+	0%
+		opacity 1
+		transform translateY(0)
+	100%
+		opacity 0
+		transform translateY(-150px)
 
 @keyframes k-overlay
-  0%
-    background rgba(0,0,0,0)
-  100%
-    background rgba(0,0,0,0.15)
+	0%
+		background rgba(0,0,0,0)
+	100%
+		background rgba(0,0,0,0.15)
 
 @keyframes k-overlay-off
-  0%
-    background rgba(0,0,0,0.15)
-  100%
-    background rgba(0,0,0,0)
+	0%
+		background rgba(0,0,0,0.15)
+	100%
+		background rgba(0,0,0,0)
