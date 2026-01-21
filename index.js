@@ -59,7 +59,9 @@ module.exports = (Dialog = (function () {
 			this.dom.on("keydown", window, this.zoomkeydown, true);
 			this.dom.on("keyup", window, this.zoomKeyup, true);
 
-			this.dom.on("mousewheel", this.thisdialog, this.zoomMousewheel, false);
+			setTimeout(() => {
+				this.dom.on("mousewheel", this.thisdialog, this.zoomMousewheel, false);
+			}, 200);
 
 			if (this.model.get('show')) {
 				return this.show();
