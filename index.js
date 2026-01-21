@@ -60,8 +60,10 @@ module.exports = (Dialog = (function () {
 			this.dom.on("keyup", window, this.zoomKeyup, true);
 
 			setTimeout(() => {
-				this.dom.on("mousewheel", this.thisdialog, this.zoomMousewheel, false);
-			}, 200);
+				if (this.thisdialog) {
+					this.dom.on("mousewheel", this.thisdialog, this.zoomMousewheel, false);
+				}
+			}, 300);
 
 			if (this.model.get('show')) {
 				return this.show();
@@ -83,14 +85,14 @@ module.exports = (Dialog = (function () {
 
 					if (doWeWantZoom1) {
 						let zoom = this.model.root.get('_page.zoom') || 1.0;
-						zoom = zoomIn? zoom + 0.1 : zoom - 0.1;
+						zoom = zoomIn ? zoom + 0.1 : zoom - 0.1;
 						this.model.root.set('_page.zoom', zoom)
 						this.model.toast('info', `${Math.round(zoom * 100)}%`)
 					}
 					else {
 						this.page.emit('change-zoom', (zoomIn ? 1 : -1));
 					}
-				}			
+				}
 			}
 		}
 
