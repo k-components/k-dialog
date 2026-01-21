@@ -25,6 +25,9 @@ module.exports = (Dialog = (function () {
 			this.keydown = this.keydown.bind(this);
 			this.removeWindowEventListeners = this.removeWindowEventListeners.bind(this);
 			this.addWindowEventListeners = this.addWindowEventListeners.bind(this);
+			this.zoomMousewheel = this.zoomMousewheel.bind(this);
+			this.zoomKeyup = this.zoomKeyup.bind(this);
+			this.zoomkeydown = this.zoomkeydown.bind(this);
 		}
 
 		static initClass() {
@@ -53,10 +56,56 @@ module.exports = (Dialog = (function () {
 
 			this.listener = this.model.on('change', 'show', this.showChanged);
 
+			this.dom.on("keydown", window, this.zoomkeydown, true);
+			this.dom.on("keyup", window, this.zoomKeyup, true);
+
+			this.dom.on("mousewheel", this.thisdialog, this.zoomMousewheel, false);
+
 			if (this.model.get('show')) {
 				return this.show();
 			}
 		}
+
+		zoomMousewheel(e) {
+			// Zoom
+			if (this.ctrlKeyDown) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+
+				// Increase Zoom?	
+				let zoomIn = e.deltaY < 0;
+				const doWeWantZoom1 = document.querySelector('email-view') || document.querySelector('.ticket-textbody');
+				const doWeWantZoom2 = document.querySelector('.k-prose-content.k-prose-content-doc');
+
+				if (doWeWantZoom1 || doWeWantZoom2) {
+
+					if (doWeWantZoom1) {
+						let zoom = this.model.root.get('_page.zoom') || 1.0;
+						zoom = zoomIn? zoom + 0.1 : zoom - 0.1;
+						this.model.root.set('_page.zoom', zoom)
+						this.model.toast('info', `${Math.round(zoom * 100)}%`)
+					}
+					else {
+						this.page.emit('change-zoom', (zoomIn ? 1 : -1));
+					}
+				}			
+			}
+		}
+
+		zoomKeyup(e) {
+			if (!e.ctrlKey && e.key == 'Control') {
+				this.ctrlKeyDown = false;
+			}
+		}
+
+		zoomkeydown(e) {
+			if (e.ctrlKey && e.key == 'Control') {
+				this.ctrlKeyDown = true;
+			}
+		}
+
+
+
 
 		removeWindowEventListeners() {
 			// Remove from window
