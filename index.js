@@ -50,6 +50,8 @@ module.exports = (Dialog = (function () {
 
 		create() {
 			// console.log('create', this.model.get('from'))
+			let initZoom = 0;
+
 			if (this.listener) {
 				this.model.removeListener('change', this.listener);
 			}
@@ -59,11 +61,15 @@ module.exports = (Dialog = (function () {
 			this.dom.on("keydown", window, this.zoomkeydown, true);
 			this.dom.on("keyup", window, this.zoomKeyup, true);
 
-			setTimeout(() => {
+			const setZoom = () => {
 				if (this.thisdialog) {
 					this.dom.on("mousewheel", this.thisdialog, this.zoomMousewheel, false);
+				} else if (++initZoom < 20) {
+					setTimeout(setZoom, 100);		
 				}
-			}, 300);
+			};
+
+			setTimeout(setZoom, 300);
 
 			if (this.model.get('show')) {
 				return this.show();
