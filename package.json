@@ -2,7 +2,7 @@
   "name": "k-dialog",
   "version": "1.0.90",
   "description": "k-dialog\r ========",
-  "main": "index.js",
+  "main": "index.cjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +15,7 @@
   "bugs": {
     "url": "https://github.com/k-components/k-dialog/issues"
   },
-  "homepage": "https://github.com/k-components/k-dialog#readme"
+  "homepage": "https://github.com/k-components/k-dialog#readme",
+  "type": "module",
+  "module": "index.js"
 }
