@@ -18,6 +18,8 @@ module.exports = (Dialog = (function () {
 			this.backbuttonpressed = this.backbuttonpressed.bind(this);
 			this.autofocus = this.autofocus.bind(this);
 			this.setzIndex = this.setzIndex.bind(this);
+			this.unlockBodyScroll = this.unlockBodyScroll.bind(this);
+			this.lockBodyScroll = this.lockBodyScroll.bind(this);
 			this.showChanged = this.showChanged.bind(this);
 			this.show = this.show.bind(this);
 			this.hide = this.hide.bind(this);
@@ -39,6 +41,7 @@ module.exports = (Dialog = (function () {
 
 		destroy() {
 			this.removeWindowEventListeners();
+			this.unlockBodyScroll();
 
 			if (this.listener) {
 				this.model.removeListener('change', this.listener);
@@ -239,6 +242,41 @@ module.exports = (Dialog = (function () {
 			}
 		}
 
+		lockBodyScroll() {
+			if (this.model.get('static') || this.bodyScrollLocked || !document.body) {
+				return;
+			}
+
+			window.kDialogBodyLockCount = window.kDialogBodyLockCount || 0;
+
+			if (window.kDialogBodyLockCount === 0) {
+				document.body.dataset.kDialogOverflow = document.body.style.overflow || '';
+				document.body.dataset.kDialogOverscrollBehavior = document.body.style.overscrollBehavior || '';
+				document.body.style.overflow = 'hidden';
+				document.body.style.overscrollBehavior = 'none';
+			}
+
+			window.kDialogBodyLockCount += 1;
+			this.bodyScrollLocked = true;
+		}
+
+		unlockBodyScroll() {
+			if (!this.bodyScrollLocked || !document.body) {
+				return;
+			}
+
+			window.kDialogBodyLockCount = Math.max((window.kDialogBodyLockCount || 1) - 1, 0);
+
+			if (window.kDialogBodyLockCount === 0) {
+				document.body.style.overflow = document.body.dataset.kDialogOverflow || '';
+				document.body.style.overscrollBehavior = document.body.dataset.kDialogOverscrollBehavior || '';
+				delete document.body.dataset.kDialogOverflow;
+				delete document.body.dataset.kDialogOverscrollBehavior;
+			}
+
+			this.bodyScrollLocked = false;
+		}
+
 		showChanged(val, oldval) {
 			if (val) {
 				return this.show();
@@ -249,6 +287,7 @@ module.exports = (Dialog = (function () {
 			e && e.preventDefault();
 			e && e.stopPropagation();
 			this.addWindowEventListeners();
+			this.lockBodyScroll();
 			this.setzIndex();
 
 			const focused = this.autofocus();
@@ -269,6 +308,7 @@ module.exports = (Dialog = (function () {
 
 			if (backbuttonpressed == null) { backbuttonpressed = false; }
 			this.removeWindowEventListeners();
+			this.unlockBodyScroll();
 			if (e) { e.stopPropagation(); }
 			document.activeElement.blur();
 
