@@ -92,6 +92,13 @@
 .k-overlay.k-overlay-align-start
 	align-items: start
 
+
+body.dark-mode
+	.k-overlay
+		> .k-dialog
+			border: solid 1px #202938
+			box-shadow: 4px 4px 30px #0c0f15
+
 .k-overlay
 	position absolute
 	top 0
@@ -130,7 +137,7 @@
 		outline none
 		position absolute
 		width 450px
-		border-radius 10px
+		border-radius 20px
 		box-shadow 0 0 35px rgba(0,0,0,0.22)
 		animation 0.2s k-dialog cubic-bezier(0, 1, 0, 1)
 		box-sizing border-box
