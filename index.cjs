@@ -28,8 +28,6 @@ module.exports = (Dialog = (function () {
 			this.removeWindowEventListeners = this.removeWindowEventListeners.bind(this);
 			this.addWindowEventListeners = this.addWindowEventListeners.bind(this);
 			this.zoomMousewheel = this.zoomMousewheel.bind(this);
-			this.zoomKeyup = this.zoomKeyup.bind(this);
-			this.zoomkeydown = this.zoomkeydown.bind(this);
 		}
 
 		static initClass() {
@@ -61,9 +59,6 @@ module.exports = (Dialog = (function () {
 
 			this.listener = this.model.on('change', 'show', this.showChanged);
 
-			this.dom.on("keydown", window, this.zoomkeydown, true);
-			this.dom.on("keyup", window, this.zoomKeyup, true);
-
 			const setZoom = () => {
 				if (this.thisdialog) {
 					this.dom.on("mousewheel", this.thisdialog, this.zoomMousewheel, false);
@@ -81,7 +76,7 @@ module.exports = (Dialog = (function () {
 
 		zoomMousewheel(e) {
 			// Zoom
-			if (this.ctrlKeyDown) {
+			if (e.ctrlKey) {
 				e.preventDefault();
 				e.stopImmediatePropagation();
 
@@ -104,20 +99,6 @@ module.exports = (Dialog = (function () {
 				}
 			}
 		}
-
-		zoomKeyup(e) {
-			if (!e.ctrlKey && e.key == 'Control') {
-				this.ctrlKeyDown = false;
-			}
-		}
-
-		zoomkeydown(e) {
-			if (e.ctrlKey && e.key == 'Control') {
-				this.ctrlKeyDown = true;
-			}
-		}
-
-
 
 
 		removeWindowEventListeners() {
