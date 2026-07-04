@@ -3,6 +3,9 @@
   "version": "1.0.97",
   "description": "k-dialog\r ========",
   "main": "index.cjs",
+  "dependencies": {
+    "sc-util": "file:../sc-util"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
