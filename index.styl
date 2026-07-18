@@ -99,6 +99,11 @@ body.dark-mode
 			border: solid 1px #202938
 			box-shadow: 4px 4px 30px #0c0f15
 
+			.k-close
+				background lighten(dark-mode-bg, 5%)
+				color #eee
+
+
 .k-overlay
 	position absolute
 	top 0
@@ -156,6 +161,8 @@ body.dark-mode
 			color #aaa
 
 		.k-close
+			background #ddd
+			color #fff
 			transition 0.2s background
 			position absolute
 			top 5px
@@ -164,9 +171,7 @@ body.dark-mode
 			width 40px
 			text-align center
 			height 40px
-			background #ddd
 			border-radius 100%
-			color #fff
 			line-height 40px
 			cursor pointer
 			z-index 1
