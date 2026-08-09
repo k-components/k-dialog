@@ -1,6 +1,6 @@
 {
   "name": "k-dialog",
-  "version": "1.0.99",
+  "version": "1.0.100",
   "description": "k-dialog\r ========",
   "main": "index.cjs",
   "dependencies": {
