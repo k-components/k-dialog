@@ -170,7 +170,7 @@ module.exports = (Dialog = (function () {
 		keydown(e) {
 			if (e.key === 'Escape') {
 
-				if ((['INPUT', 'TEXTAREA'].includes(e.target.nodeName) || document.activeElement.isContentEditable) && !this.model.get('exitWithEsc')) {
+				if ((['INPUT', 'TEXTAREA'].includes(e.target.nodeName) || document.activeElement.isContentEditable) || !this.model.get('exitWithEsc')) {
 					return;
 				}
 
