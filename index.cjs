@@ -8,7 +8,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 
-const util = require('sc-util')
+const MAX_FS_SIZE = 20;
 
 let Dialog;
 module.exports = (Dialog = (function () {
@@ -50,7 +50,6 @@ module.exports = (Dialog = (function () {
 		}
 
 		create() {
-			// console.log('create', this.model.get('from'))
 			let initZoom = 0;
 
 			if (this.listener) {
@@ -77,29 +76,22 @@ module.exports = (Dialog = (function () {
 		zoomMousewheel(e) {
 			// Zoom
 			if (e.ctrlKey) {
-				e.preventDefault();
-				e.stopImmediatePropagation();
-
 				// Increase Zoom?	
-				let zoomIn = e.deltaY < 0;
-				const doWeWantZoom1 = document.querySelector('email-view') || document.querySelector('.ticket-textbody');
-				const doWeWantZoom2 = document.querySelector('.k-prose-content.k-prose-content-doc');
+				const zoomIn = e.deltaY < 0;
+				const fs = this.model.root.get('_p.user_settings.settings.fs') || 3;
 
-				if (doWeWantZoom1 || doWeWantZoom2) {
+				if (fs > 1 || fs < MAX_FS_SIZE) {
+					e.preventDefault();
+					e.stopImmediatePropagation();
 
-					if (doWeWantZoom1) {
-						let zoom = this.model.root.get('_page.zoom') || 1.0;
-						zoom = zoomIn ? zoom + 0.1 : zoom - 0.1;
-						this.model.root.set('_page.zoom', zoom)
-						this.model.toast('info', `${Math.round(zoom * 100)}%`)
-					}
-					else {
-						this.page.emit('change-zoom', (zoomIn ? 1 : -1));
+					if (zoomIn && fs < MAX_FS_SIZE) {
+						this.model.root.increment('_p.user_settings.settings.fs')
+					} else if (!zoomIn && fs > 1) {
+						this.model.root.increment('_p.user_settings.settings.fs', -1)
 					}
 				}
 			}
 		}
-
 
 		removeWindowEventListeners() {
 			// Remove from window
