@@ -86,9 +86,9 @@ module.exports = (Dialog = (function () {
 				if (doWeWantZoom1) {
 
 					if (doWeWantZoom1) {
-						let zoom = this.model.root.get('_page.zoom') || 1.0;
+						let zoom = this.model.root.get('_p.zoom') || 1.0;
 						zoom = zoomIn ? zoom + 0.1 : zoom - 0.1;
-						this.model.root.set('_page.zoom', zoom)
+						this.model.root.set('_p.zoom', zoom)
 						this.model.toast('info', `${Math.round(zoom * 100)}%`)
 					}
 					else {
