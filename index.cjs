@@ -8,7 +8,7 @@
  * Full docs: https://github.com/decaffeinate/decaffeinate/blob/main/docs/suggestions.md
  */
 
-const MAX_FS_SIZE = 20;
+const util = require('sc-util');
 
 let Dialog;
 module.exports = (Dialog = (function () {
@@ -82,9 +82,9 @@ module.exports = (Dialog = (function () {
 				// Increase Zoom?	
 				let zoomIn = e.deltaY < 0;
 				const doWeWantZoom1 = document.querySelector('email-view') || document.querySelector('.ticket-textbody');
+				const doWeWantZoom2 = document.querySelector('.k-prose-content.k-prose-content-doc');
 
-				if (doWeWantZoom1) {
-
+				if (doWeWantZoom1 || doWeWantZoom2) {
 					if (doWeWantZoom1) {
 						let zoom = this.model.root.get('_p.zoom') || 1.0;
 						zoom = zoomIn ? zoom + 0.1 : zoom - 0.1;
@@ -92,7 +92,7 @@ module.exports = (Dialog = (function () {
 						this.model.toast('info', `${Math.round(zoom * 100)}%`)
 					}
 					else {
-						this.page.emit('change-zoom', (zoomIn ? 1 : -1));
+						util.changeFontSize(this.model, e);
 					}
 				}
 			}
